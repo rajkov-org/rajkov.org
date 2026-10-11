@@ -12,3 +12,6 @@ dist/
 build/
 ftp.env
 *.env
+
+# Weekly bulletin generator: LOCAL ONLY (owner decision 2026-10-11) — only its output under www/ is committed
+bulletin/

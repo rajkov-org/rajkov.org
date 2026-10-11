@@ -113,6 +113,20 @@ Supporting files stay at the repo root, never inside `www/`.
 - Staging is `noindex` via the origin header; production strips it at the edge.
   `sitemap.xml` lists every indexable page; `404.html` is `noindex`.
 
+## Weekly Rajasthan Bulletin (story 004)
+
+A ~2-minute spoken bulletin every **Sunday 17:00 Australia/Melbourne**, in English and
+Rajasthani (Marwari, Devanagari), opening with *Khamma Ghani* and *Ram Ram sa*. The
+generator is **local only** — `bulletin/` on dev01 is gitignored by owner decision
+(2026-10-11); the method is the `news-bulletin` skill on dev01 (`~/.claude/skills/`).
+What the repo holds is the **output text** under `www/bulletin/` (transcript pages,
+archive index, podcast feed). **Audio is never committed**; the mp3s are uploaded to
+production out-of-band and only the **last 4 weeks** are kept there. The bulletin never
+invents: headlines from RSS, gold/silver/A$→₹ from live key-less APIs, the kahavat of the
+week from a committee-vetted list, RAJKOV event mentions (manuhaar to register) from a
+committee-maintained `events.json`. Gateway key: `rajkov` on llm-gw (`sonnet,haiku,kokoro`),
+stored in `~/.config/rajkov/llm.env`, never in the repo.
+
 ## Lessons learned (keep this list current)
 
 - **`curl | grep -q` under `pipefail` lies.** grep exits on the first match,
@@ -140,6 +154,18 @@ Supporting files stay at the repo root, never inside `www/`.
   Caddy the `/healthz` handle answers first, so the file is harmless there.
 - **The repo is public** (`rajkov-org/rajkov.org`): never commit credentials,
   member lists, or anything beyond what the website itself publishes.
+- **The logo is a 647×136 banner with three parts** (couple illustration, text, official
+  Vijay Stambh photo). The ONLY sources are that PNG (transparent) and a 56×82 copy inside
+  a MoU PDF — no high-resolution original exists in the export; the scanned letterheads
+  are the same low-res file printed. Ask the committee for the original before any redraw.
+- **Never run a heavy CPU job on dev01 next to a bulletin run.** A software-Vulkan
+  upscaler (Real-ESRGAN via lavapipe) pushed the 6 GB box into swap; ffmpeg/ffprobe sat
+  in D-state for minutes and looked hung. Upscaling belongs on a box with a GPU, or use a
+  light model with `nice`.
+- **`ffmpeg` in a script/timer needs `-nostdin`** (and `stdin=DEVNULL`), or it waits on the
+  terminal forever. **Python 3.13+ rejects the edge local CA** unless
+  `verify_flags &= ~ssl.VERIFY_X509_STRICT` (verification stays on). Both found building
+  the bulletin generator.
 
 ## Gate + deploy
 
