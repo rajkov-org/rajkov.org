@@ -21,7 +21,7 @@ deploys to prd01 behind the shared edge Caddy, first to the staging mirror
 `rajkov.suryasoni.info`; the production DNS cut-over is the owner's separate step.
 
 Owner decisions (AskUserQuestion round, 2026-10-11):
-1. **Contact:** Microsoft Form for membership enquiries; **amended later on 2026-10-11:** general "contact the committee" links go to `secretary@rajkov.org` (role address, Microsoft 365). Still no phone numbers or personal emails.
+1. **Contact:** Microsoft Form for membership enquiries; **amended later on 2026-10-11:** general "contact the committee" links go to `secretary@rajkov.org` (role address, Microsoft 365) and "Become a sponsor" links to `president@rajkov.org`. Still no phone numbers or personal emails.
 2. **Committee:** names and roles only.
 3. **Logo:** ship the corrected "KUTUMB" PNG from the export as-is (`media/2024/06/Proposed-Resolution-…png`, 646×135, "EST. 2003").
 4. **Pages:** Shop/Cart/Checkout/My account/Tickets/Blog/Sample/Privacy (lorem ipsum)/empty Gangaur 2024 are dropped

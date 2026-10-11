@@ -51,8 +51,8 @@ Supporting files stay at the repo root, never inside `www/`.
   `deploy/Caddyfile`; keep those redirects.
 - Contact: general committee contact is **secretary@rajkov.org** (owner,
   2026-10-11, amending the earlier form-only decision); **membership enquiries**
-  go to the Microsoft Form. No phone numbers and no personal emails in page
-  copy. Committee = names + roles.
+  go to the Microsoft Form; **sponsorship** goes to president@rajkov.org. No
+  phone numbers and no personal emails in page copy. Committee = names + roles.
 - Logo: `www/assets/img/rajkov-logo.png` is the corrected "KUTUMB" artwork
   (it was `Proposed-Resolution-…png` in the WordPress uploads).
 
