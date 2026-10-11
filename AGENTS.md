@@ -145,9 +145,16 @@ stored in `~/.config/rajkov/llm.env`, never in the repo.
   someone edits `www/*.html` by hand (as upstream did for the 2026 flyers), port
   the edit into the generator first and confirm a regeneration changes nothing
   else (`git status` should show only the intended files).
-- **Sponsor/partner logos usually arrive only inside a composite flyer.** Crop
-  from the highest-resolution source available (ffmpeg `crop` + 2× lanczos) and
-  ask the sponsor for the real file; store the crop under the final name.
+- **Sponsor/partner logos: never ship flyer crops if an official file exists.** The
+  2026 flyer was 1024 px wide, so its logo crops were soft, cut at the edges and
+  carried the cream flyer background — that is what "logos cutting off" looked like.
+  Fetch the official mark from the sponsor's own site/socials (four of seven had
+  rebranded since the flyer: CYP, Nexus Developments, Mortgage Choice, Kesaria).
+  Treatment rules in `SPONSOR_TIERS`: variant `"dark"` for gold-on-transparent marks
+  (Nexus, Radevo — indigo logo box), `"monogram"` for individuals (initials, no fake
+  logo), plain otherwise. Keep alpha (`-pix_fmt yuva420p` webp), add inner padding,
+  never let a mark touch the card edge. Aussie Loans has no findable official file —
+  its tile is the flyer mark with the background keyed out; ask the sponsor for artwork.
 - **Docker image pulls can fail transiently** (`containerd … ingest … no such
   file`). Re-run `docker pull caddy:2-alpine`, then `make check` again.
 - **`www/healthz` is a real file** ("ok") so `verify.sh` passes on the FTP host too; on
