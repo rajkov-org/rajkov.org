@@ -129,7 +129,7 @@ is the `news-bulletin` skill on dev01. Pipeline (`bulletin/run.sh`, systemd **us
    transcript keeps proper spelling. Prices from key-less APIs; kahavat from the curated
    `idioms.json`; RAJKOV notices from `events.json`. **Music is baked into the MP3** (the file
    travels alone on WhatsApp): intro sting → voice (loudness-matched to −16 LUFS, the two Kokoro
-   voices differ by ~6 dB) over a looped bed at `BULLETIN_BED_DB` (−16, ≈14 dB under the voice; −25 was inaudible on a phone — owner, 2026-10-11) → outro sting. The assets
+   voices differ by ~6 dB) over a looped bed at `BULLETIN_BED_DB` (−12 → bed ≈ −30 LUFS, ≈14 dB under the voice; the mono downmix costs ~4 dB; −25 was inaudible on a phone — owner, 2026-10-11) → outro sting. The assets
    are tickerlab's (`bulletin/assets/`, **CC BY 4.0** — the credit line under each player and the
    MP3 ID3 comment are REQUIRED). The dry narration is kept as `out/<date>/<lang>-voice.mp3` so
    `generate.py --date D --remix` re-mixes without re-running TTS; `publish.py` retires it with the edition.
@@ -185,6 +185,9 @@ re-cut, bump `LOGO_V`, redeploy and tell the owner.
   are served with `max-age=3600` and Cloudflare caches them too, so a replaced sponsor
   logo looked "not updated" on staging. Bump `LOGO_V` in the generator (sponsor `<img>`
   URLs carry `?v=N`) whenever a logo changes in place; new files get new names anyway.
+- **`publish.py` compares recordings by content, not size.** A re-mix of the same narration
+  has the same length and so the same byte size; the old size check skipped the copy and the
+  site kept serving the previous mix (found 2026-10-11, the first music re-mix never shipped).
 - **The repo is public** (`rajkov-org/rajkov.org`): never commit credentials,
   member lists, or anything beyond what the website itself publishes.
 - **The logo is a 647×136 banner with three parts** (couple illustration, text, official
