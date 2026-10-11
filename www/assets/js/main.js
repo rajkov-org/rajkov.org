@@ -62,3 +62,36 @@
     revealables.forEach(function (el) { io.observe(el); });
   }
 })();
+
+/* Weekly Rajasthan Bulletin: hand the MP3 to the phone's share sheet as a file (WhatsApp, etc.).
+   Web Share Level 2 needs HTTPS + a user gesture; where files are not shareable we fall back to download. */
+(function () {
+  var buttons = document.querySelectorAll("[data-share-audio]");
+  if (!buttons.length) return;
+  buttons.forEach(function (btn) {
+    btn.addEventListener("click", async function () {
+      var url = btn.getAttribute("data-share-audio");
+      var title = btn.getAttribute("data-share-title") || "RAJKOV Bulletin";
+      var text = btn.getAttribute("data-share-text") || "";
+      var name = url.split("/").pop();
+      var label = btn.textContent;
+      try {
+        btn.disabled = true; btn.textContent = "Preparing…";
+        var res = await fetch(url, { cache: "force-cache" });
+        var blob = await res.blob();
+        var file = new File([blob], name, { type: "audio/mpeg" });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title: title, text: text });
+        } else if (navigator.share) {
+          await navigator.share({ title: title, text: text, url: location.href });
+        } else {
+          var a = document.createElement("a"); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+        }
+      } catch (e) {
+        if (!(e && e.name === "AbortError")) { console.warn("[bulletin] share failed:", e); location.href = url; }
+      } finally {
+        btn.disabled = false; btn.textContent = label;
+      }
+    });
+  });
+})();

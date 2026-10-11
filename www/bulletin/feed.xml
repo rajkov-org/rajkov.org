@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>RAJKOV Weekly Rajasthan Bulletin</title>
+  <link>https://rajkov.org/bulletin</link>
+  <atom:link href="https://rajkov.org/bulletin/feed.xml" rel="self" type="application/rss+xml"/>
+  <language>en-au</language>
+  <description>Two minutes of Rajasthan every Sunday 5 pm Melbourne — culture, investment, the diaspora, gold and silver, and a kahavat of the week — in English and Rajasthani. From Rajasthani Kutumb of Victoria.</description>
+  <itunes:author>Rajasthani Kutumb of Victoria Inc.</itunes:author>
+  <itunes:image href="https://rajkov.org/assets/img/rajkov-icon-512.png"/>
+  <itunes:explicit>false</itunes:explicit>
+  <item>
+    <title>Weekly Rajasthan Bulletin — 11 October 2026 (English)</title>
+    <link>https://rajkov.org/bulletin/2026-10-11</link>
+    <guid isPermaLink="false">rajkov-bulletin-2026-10-11-en</guid>
+    <pubDate>Sun, 11 Oct 2026 17:00:00 +1100</pubDate>
+    <description>Khamma Ghani, Ram Ram sa. This is the Weekly Rajasthan Bulletin from RAJKOV — Sunday the eleventh of October twenty twenty-six.
+
+Beautiful news from the arts. A handcrafted stop-motion film called Godawan brings the Great Indian Bustard&#x27;s story to life, one ceramic piece at a time. And right on cue, two captive-bred Great Indian Bustards were released into the wild in Rajasthan this very week. Art…</description>
+    <enclosure url="https://rajkov.org/bulletin/audio/2026-10-11-en.mp3" length="1096940" type="audio/mpeg"/>
+    <itunes:duration>137</itunes:duration>
+  </item>
+  <item>
+    <title>Weekly Rajasthan Bulletin — 11 October 2026 (Rajasthani)</title>
+    <link>https://rajkov.org/bulletin/2026-10-11</link>
+    <guid isPermaLink="false">rajkov-bulletin-2026-10-11-raj</guid>
+    <pubDate>Sun, 11 Oct 2026 17:00:00 +1100</pubDate>
+    <description>खम्मा घणी सा, राम राम सा। आप सगळां नै राजकोव री तरफ सूं खूब स्वागत छै — राजस्थान वीकली बुलेटिन, रविवार ग्यारह अक्टूबर दो हजार छब्बीस।
+
+पैली बात संस्कृति री। इस हफ्तै गोडावण फिल्म री घणी चर्चा रही। ये हाथ सूं बणाई स्टॉप-मोशन फिल्म ग्रेट इंडियन बस्टर्ड री कहाणी मिट्टी री मूर्तियां सूं बतावै। एक-एक फ्रेम हाथ सूं घड़्यो गयो — ये कला भी छै अर म्हारे गोडावण री रक्षा री पुकार भी।
+
+HPCL नै राजस्थानी संस्क…</description>
+    <enclosure url="https://rajkov.org/bulletin/audio/2026-10-11-raj.mp3" length="1289708" type="audio/mpeg"/>
+    <itunes:duration>161</itunes:duration>
+  </item>
+</channel>
+</rss>

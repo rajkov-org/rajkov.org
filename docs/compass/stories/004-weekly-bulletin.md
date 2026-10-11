@@ -28,6 +28,12 @@ Interpretation of the owner's instructions (2026-10-11, mid-session):
 - A **draft edition is produced first** and sent to the owner for committee approval
   before any timer exists.
 
+Added 2026-10-11 (owner): each edition page must share well on **WhatsApp** — a
+"Share on WhatsApp" link, a "Share audio" button that hands the MP3 to the phone's share
+sheet as an attachment (Web Share API with files; falls back to download), and proper
+link-preview metadata (og:title/description, an og:image per edition at 1200×630 under
+300 KB with width/height, og:audio, twitter card).
+
 ## Scope — touch ONLY these
 
 - `bulletin/` (gitignored, local): `generate.py`, `idioms.json`, `events.json`,

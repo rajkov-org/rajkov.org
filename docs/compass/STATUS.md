@@ -8,8 +8,9 @@
 003 — Production cut-over on the shared host via FTPS: **https://rajkov.org live 2026-10-11** (stories/003, deploy/DEPLOYED.md)
 
 ## Now
-- 004 — Weekly Rajasthan Bulletin (en + Rajasthani, Sunday 17:00 Melbourne): draft edition generated 2026-10-11, awaiting committee approval (stories/004)
+- 004 — Weekly Rajasthan Bulletin (en + Rajasthani, Sunday 17:00 Melbourne): voices + pronunciation approved by owner; publish pipeline + WhatsApp sharing built 2026-10-11; on staging, timer written but NOT enabled until owner/committee go (stories/004)
 - Logo: split the banner into couple mark + live text + official Vijay Stambh — analysis sent to owner 2026-10-11; awaiting go-ahead (no story: small change)
+- Sponsor logo watch: `tools/logo-watch.py` + monthly user timer on dev01 (owner's standing instruction 2026-10-11)
 
 ## Next
 - 002 — Events gallery (Gangaur etc.) if the owner supplies photos

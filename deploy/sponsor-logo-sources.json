@@ -1,0 +1,68 @@
+{
+ "_comment": "Official logo sources + sha256 of what we fetched. tools/logo-watch.py re-fetches and flags changes. Checked monthly (owner's standing instruction 2026-10-11).",
+ "checked": "2026-10-11",
+ "sponsors": [
+  {
+   "name": "CYP Foods & Spices",
+   "file": "cyp-foods-spices-logo.webp",
+   "source_page": "https://cypfoods.com/",
+   "source_url": "https://cypfoods.com/images/logo.webp",
+   "sha256": "777023821074f63c2270f96c92290a1d02351433fbc0b76b7160f03582a090e3",
+   "bytes": 161974
+  },
+  {
+   "name": "Aussizz Group",
+   "file": "aussizz-group-logo.webp",
+   "source_page": "https://www.aussizzgroup.com/",
+   "source_url": null,
+   "note": "fetched earlier in the project from the web; record the exact URL when next refreshed"
+  },
+  {
+   "name": "Nexus Developments",
+   "file": "nexus-development-logo.webp",
+   "source_page": "https://nexusdevelopments.com.au/",
+   "source_url": "https://nexusdevelopments.com.au/wp-content/uploads/2026/02/Asset-1-1.png",
+   "sha256": "4956bf4d76690c784e6e5aff25709bac919dfdc3f36a774a98093b58d2a352d1",
+   "bytes": 85497
+  },
+  {
+   "name": "Mortgage Choice",
+   "file": "mortgage-choice-logo.webp",
+   "source_page": "https://en.wikipedia.org/wiki/Mortgage_Choice",
+   "source_url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Mortgagechoice-logo-rgb-h-stacked-300ppi.png",
+   "sha256": "9ae3d3baf4c24d721f6f0f2ba4771abc305c3e41a166ca25e06b7839b1dadece",
+   "bytes": 45566
+  },
+  {
+   "name": "Radevo Living",
+   "file": "radevo-living-logo.webp",
+   "source_page": "https://radevoliving.com.au/",
+   "source_url": "https://radevoliving.com.au/wp-content/uploads/2025/06/Radevoliving-Logo.webp",
+   "sha256": "ebdc8d00aa0c926d66821cf454a6f0ec7b213a0f62089a60a4e465b80b1cbbdf",
+   "bytes": 10476
+  },
+  {
+   "name": "Aussie Loans",
+   "file": "aussie-loans-logo.webp",
+   "source_page": null,
+   "source_url": null,
+   "note": "no official logo found online (2026-10-11); tile is the flyer mark with background keyed out — ask Nikita ji for artwork"
+  },
+  {
+   "name": "Kesaria Marketing (USA)",
+   "file": "kesaria-marketing-logo.webp",
+   "source_page": "https://kesaria-marketing.com/",
+   "source_url": "https://img1.wsimg.com/isteam/ip/f2a600e9-ec08-457b-b652-dbbab373020b/logo/269187c9-24ea-4632-bbca-7d535078b22f.jpg",
+   "sha256": "c4660560a070e8478e15d872439806d745b0e17ff7a0927889c7c6184c5775ca",
+   "bytes": 171387
+  },
+  {
+   "name": "Gangaur Television",
+   "file": "gangaur-television-logo.webp",
+   "source_page": "https://gangaurtv.com/",
+   "source_url": "https://gangaurtv.com/images/logo-v4.webp",
+   "sha256": "d4a432d41c2652eb9bc545dc616acb090e1d5f5383d25bcc2d68d354743e4d28",
+   "bytes": 75344
+  }
+ ]
+}

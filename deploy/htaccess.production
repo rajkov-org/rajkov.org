@@ -68,13 +68,15 @@ RedirectMatch 404 ^/_retired-wordpress
   <FilesMatch "\.html$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
-  <FilesMatch "\.(css|js|webp|png|jpg|jpeg|ico|svg|pdf|webmanifest)$">
+  <FilesMatch "\.(css|js|webp|png|jpg|jpeg|ico|svg|pdf|webmanifest|mp3)$">
     Header set Cache-Control "public, max-age=3600"
   </FilesMatch>
 </IfModule>
 
 <IfModule mod_mime.c>
   AddType image/webp .webp
+  AddType audio/mpeg .mp3
+  AddType application/rss+xml .xml
   AddType application/manifest+json .webmanifest
 </IfModule>
 <IfModule mod_deflate.c>

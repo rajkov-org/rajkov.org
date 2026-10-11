@@ -116,16 +116,33 @@ Supporting files stay at the repo root, never inside `www/`.
 ## Weekly Rajasthan Bulletin (story 004)
 
 A ~2-minute spoken bulletin every **Sunday 17:00 Australia/Melbourne**, in English and
-Rajasthani (Marwari, Devanagari), opening with *Khamma Ghani* and *Ram Ram sa*. The
-generator is **local only** — `bulletin/` on dev01 is gitignored by owner decision
-(2026-10-11); the method is the `news-bulletin` skill on dev01 (`~/.claude/skills/`).
-What the repo holds is the **output text** under `www/bulletin/` (transcript pages,
-archive index, podcast feed). **Audio is never committed**; the mp3s are uploaded to
-production out-of-band and only the **last 4 weeks** are kept there. The bulletin never
-invents: headlines from RSS, gold/silver/A$→₹ from live key-less APIs, the kahavat of the
-week from a committee-vetted list, RAJKOV event mentions (manuhaar to register) from a
-committee-maintained `events.json`. Gateway key: `rajkov` on llm-gw (`sonnet,haiku,kokoro`),
-stored in `~/.config/rajkov/llm.env`, never in the repo.
+Rajasthani (Marwari, Devanagari), opening with *Khamma Ghani* and *Ram Ram sa* and closing
+with the credit "brought to you by Surya ji with his AI skills for RAJKOV". The generator is
+**local only** — `bulletin/` on dev01 is gitignored by owner decision (2026-10-11); the method
+is the `news-bulletin` skill on dev01. Pipeline (`bulletin/run.sh`, systemd **user** timer
+`rajkov-bulletin.timer` on dev01, 16:35 so the edition is live by 17:00):
+
+1. `generate.py` — RSS headlines (Rajasthan culture/investment/diaspora + an Australia slot
+   for Indian-diaspora-relevant news + one Indian filler) → grounded `sonnet` script per
+   language → Kokoro narration (en `af_heart`, same voice as the owner's audiobooks, locked;
+   raj `hf_alpha`). Speech-only respellings live in `bulletin/pronounce.json`; the published
+   transcript keeps proper spelling. Prices from key-less APIs; kahavat from the curated
+   `idioms.json`; RAJKOV notices from `events.json`.
+2. `publish.py` — writes `www/bulletin/<date>.html`, `www/bulletin.html`, `feed.xml`, a
+   1200×630 preview PNG, and syncs `sitemap.xml`; copies MP3s to `www/bulletin/audio/`
+   (**gitignored, never committed**) and retires audio older than 28 days (prod keeps ~4
+   weeks; `make ftp-prune` removes it there; the page then shows transcript only). Header and
+   footer are lifted from `www/contact.html` so `make check` stays green.
+3. `make check` → commit text/feed/image → `make edge-deploy` → `make ftp-deploy` → `make ftp-prune`.
+
+Each edition page has WhatsApp sharing: a `wa.me` link, a "Share audio file" button
+(`main.js`, Web Share API with files → phone share sheet → WhatsApp attachment; falls back to
+download) and OG/Twitter tags with the per-edition image (<300 KB) and `og:audio`. Gateway key:
+`rajkov` on llm-gw (`sonnet,haiku,kokoro`), in `~/.config/rajkov/llm.env`, never in the repo.
+
+**Sponsor logo watch** (owner, 2026-10-11): `tools/logo-watch.py` re-fetches each official
+logo source in `deploy/sponsor-logo-sources.json` and flags changes; run monthly, then
+re-cut, bump `LOGO_V`, redeploy and tell the owner.
 
 ## Lessons learned (keep this list current)
 

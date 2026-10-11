@@ -512,3 +512,29 @@ tbody tr:nth-child(even) td { background: #fdfaf4; }
 .tier--platinum .sponsor strong { font-size: 1.25rem; }
 .sponsor span { color: var(--muted); font-size: .9rem; }
 .tier--platinum .sponsor { border-width: 2px; border-color: var(--saffron); }
+
+/* ---------- Weekly Rajasthan Bulletin (story 004) ---------- */
+.bulletin-band-inner { display: grid; grid-template-columns: 1.6fr 1fr; gap: 2rem; align-items: center; }
+.bulletin-band .btn-row { justify-content: flex-end; }
+@media (max-width: 760px) { .bulletin-band-inner { grid-template-columns: 1fr; } .bulletin-band .btn-row { justify-content: flex-start; } }
+.bulletin-card h3 { margin-bottom: .2rem; }
+.bulletin-card h3[lang="raj"], .bulletin-kah, .bulletin-archive [lang="raj"] { font-family: var(--font-deva); }
+.bulletin-dur { display: block; color: var(--muted); font-size: .9rem; margin-bottom: .8rem; }
+.bulletin-card audio { display: block; width: 100%; margin: .2rem 0 1rem; }
+.bulletin-share { margin-bottom: 1rem; }
+.bulletin-transcript summary, .bulletin-sources summary { cursor: pointer; font-weight: 700; color: var(--turban-dark); }
+.bulletin-transcript p { margin: .7rem 0 0; }
+.bulletin-transcript[lang="raj"] p, #raj .bulletin-transcript p { font-family: var(--font-deva); font-size: 1.05rem; line-height: 1.75; }
+.bulletin-retired { background: var(--sand-2); border-radius: var(--radius-sm); padding: .8rem 1rem; color: var(--muted); }
+.bulletin-table { width: 100%; border-collapse: collapse; margin-top: .6rem; }
+.bulletin-table th, .bulletin-table td { text-align: left; padding: .45rem .5rem; border-top: 1px solid var(--line); vertical-align: top; }
+.bulletin-table th { color: var(--turban-dark); width: 22%; }
+.bulletin-table small { color: var(--muted); }
+.bulletin-kah { font-size: 1.5rem; color: var(--turban-dark); margin: .4rem 0; }
+.bulletin-sources ul { margin: .8rem 0 0; padding-left: 1.2rem; columns: 2; column-gap: 2rem; }
+.bulletin-sources li { break-inside: avoid; margin: .25rem 0; font-size: .95rem; }
+@media (max-width: 760px) { .bulletin-sources ul { columns: 1; } }
+.bulletin-archive { list-style: none; padding: 0; margin: 0; }
+.bulletin-archive li { padding: .55rem 0; border-top: 1px solid var(--line); }
+.muted { color: var(--muted); }
+.small { font-size: .9rem; }

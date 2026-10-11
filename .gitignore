@@ -14,4 +14,7 @@ ftp.env
 *.env
 
 # Weekly bulletin generator: LOCAL ONLY (owner decision 2026-10-11) — only its output under www/ is committed
-bulletin/
+/bulletin/
+
+# Bulletin recordings are uploaded to the hosts but never committed (owner decision 2026-10-11)
+www/bulletin/audio/
