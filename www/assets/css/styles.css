@@ -163,6 +163,7 @@ strong { font-weight: 700; }
 .site-header.scrolled { box-shadow: var(--shadow-sm); }
 .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: var(--header-h); }
 .brand { display: flex; align-items: center; gap: .7rem; }
+.brand:hover { text-decoration: none; }              /* the live wordmark must not underline like body links */
 .brand img { width: auto; }
 .brand-mark { height: 44px; }                      /* the couple illustration, cut from the official banner */
 .brand-stambh { height: 50px; }                    /* the Vijay Stambh photo, cut from the official banner */
