@@ -10,7 +10,7 @@ Credentials come from an env file OUTSIDE the repo (default ~/.config/rajkov/ftp
 
 Commands:
     list   [path]                 show a directory
-    backup <local-dir>            mirror the WHOLE FTP account into <local-dir> (+ manifest.tsv)
+    backup <local-dir> [paths…]   mirror the FTP account (or just the given remote paths) into <local-dir> (+ manifest.tsv)
     retire                        move every entry in FTP_ROOT into _retired-wordpress-<date>/ and deny web access to it
     upload                        mirror www/ + deploy/htaccess.production (as .htaccess) into FTP_ROOT (adds/updates only)
     prune                         delete files in FTP_ROOT that are not in www/ (never touches _retired-wordpress-*)
@@ -86,11 +86,16 @@ def cmd_list(ftp, cfg, args):
         print(f"{t:4s} {size:>10d}  {name}")
 
 def cmd_backup(ftp, cfg, args):
-    if not args: sys.exit("usage: backup <local-dir>")
+    """backup <local-dir> [remote-path ...] — default: the whole account."""
+    if not args: sys.exit("usage: backup <local-dir> [remote-path ...]")
     dest = os.path.abspath(args[0]); os.makedirs(dest, exist_ok=True)
+    roots = args[1:] or [""]
     manifest = open(os.path.join(dest, "manifest.tsv"), "a")
     n = 0; total = 0; skipped = 0; t0 = time.time()
-    for rel, size in walk(ftp, ""):
+    def allfiles():
+        for r in roots:
+            yield from walk(ftp, r)
+    for rel, size in allfiles():
         local = os.path.join(dest, rel)
         if os.path.exists(local) and os.path.getsize(local) == size and size > 0:
             skipped += 1; continue

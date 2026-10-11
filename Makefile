@@ -59,8 +59,8 @@ BACKUP_DIR ?= $(HOME)/backups/rajkov.org-ftp-$(shell date +%Y%m%d)
 ftp-list:  ## Show the FTP account's top-level directory
 	@python3 deploy/ftp/ftp.py list
 
-ftp-backup:  ## Mirror the WHOLE FTP account to $(BACKUP_DIR) (resumable)
-	@python3 deploy/ftp/ftp.py backup "$(BACKUP_DIR)"
+ftp-backup:  ## Mirror the FTP account (or BACKUP_PATHS="public_html wordpress-backups …") to $(BACKUP_DIR) (resumable)
+	@python3 deploy/ftp/ftp.py backup "$(BACKUP_DIR)" $(BACKUP_PATHS)
 
 ftp-retire:  ## Move everything in the document root into _retired-wordpress-<date>/ and deny access to it
 	@python3 deploy/ftp/ftp.py retire
