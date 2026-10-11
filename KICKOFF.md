@@ -1,0 +1,114 @@
+# KICKOFF — rajkov.org
+
+> Read this first, then `requirements.md`, then `AGENTS.md`. The hub session
+> (dev01) scraped the live WordPress site and seeded this folder on 2026-10-11;
+> everything from here on happens in THIS session.
+
+## The project in one line
+
+Rebuild **rajkov.org** — the website of **Rajasthani Kutumb of Victoria Inc.
+(RAJKOV)**, a Melbourne community association founded 2001, incorporated 2003 —
+as a professional, hand-built **static site in the style of
+aryasamajofmelbourne.com**, maintained on GitHub and hosted on **prd01** behind
+the shared edge Caddy. The content comes from the scraped WordPress export in
+`source/wordpress/`; the current site is WordPress 7.1 + Elementor + Blocksy on
+LiteSpeed shared hosting.
+
+## What is already here
+
+| Path | What |
+|---|---|
+| `source/wordpress/` | The raw export: REST JSON (`api/`), rendered HTML of all 22 pages (`html/`), a Markdown rendering of each page (`md/`), and the media originals (`media/`). See its README. |
+| `deploy/Caddyfile` | Origin config (caddy:2-alpine serving `www/`). Validated + exercised locally. |
+| `deploy/docker-compose.edge.yml` | Container on the `edge` network, alias `rajkov`, no host port, read-only, 64 MB. |
+| `deploy/caddy/rajkov.caddy` | Edge route fragment: `rajkov.org` (prod, noindex stripped), `www` → apex, `rajkov.suryasoni.info` (staging, noindex kept). Validated. |
+| `deploy/verify.sh` | Live smoke test (healthz, every page 200, indexing headers, content). |
+| `Makefile` | `dev`, `validate`, `check`, `edge-deploy` (+ its parts). `make help`. |
+| `scripts/check-links.py` | Part of `make check`: every internal href/src in `www/` must resolve. |
+| `www/` | **Placeholder only** (index, 404, empty stylesheet, logo + hero copied in). Replace it. |
+
+Nothing has been deployed to prd01 yet. No GitHub Actions. No Compass docs yet.
+
+## Ordered first tasks
+
+1. **Set up Compass** (`/compass`) — `docs/compass/STATUS.md` + `stories/`.
+   Story 001 is this rebuild; later stories are content updates.
+
+2. **Security sweep of the export (story 001 step 1, before any content is
+   reused).** The hub noticed one injected SEO-spam link in the home-page copy
+   ("the Evolution Zenith – Smart Trading → evolution-zenithofficial.com",
+   `source/wordpress/md/home.md`) — a classic compromised-WordPress marker, so
+   assume there is more. Go through `source/wordpress/html/*.html` and `md/*.md`
+   and produce `docs/security-sweep.md` listing, with file + line:
+   - every external link, and whether it is legitimate (partners, Microsoft
+     Forms) or injected;
+   - every inline `<script>` and every third-party script/iframe src (Elementor,
+     EmbedPress, WPForms, reCAPTCHA, analytics…) — none of it ships; note
+     anything that looks malicious or that phones home somewhere odd;
+   - hidden/obfuscated content: `display:none`, off-screen text, base64 blobs,
+     `eval`, encoded redirects, cloaked links, odd `<a>` inside prose;
+   - every PDF and image we intend to ship — file type matches extension
+     (`file`), PDFs contain no JavaScript/launch actions (`pdfinfo`/`qpdf
+     --check`/`strings | grep -i /JS`), SVGs contain no `<script>`/`on*=`
+     handlers.
+   Then **strip** everything flagged from the content you carry over, and tell
+   the owner what you found — they also need to know the live WordPress is
+   likely compromised and should be retired once this site replaces it.
+
+3. **Confirm the open decisions below with the owner** before building pages
+   (one AskUserQuestion round).
+
+4. **Build `www/`** — the full site, same style as aryasamajofmelbourne.com
+   (`~/projects/aryasamajofmelbourne.com/www`: single `styles.css` with design
+   tokens at the top, `main.js` for nav toggle/reveal, header+footer duplicated
+   per page, `?v=N` cache-busting, JSON-LD, sitemap, webmanifest, favicon).
+   Palette and type should come from RAJKOV's own identity (logo: red/orange
+   Rajasthani turban + moustache, saffron rule, Devanagari tagline
+   "पधारो म्हारे देस", Jaipur tower; hero: decorated camel at sunset) — not a
+   copy of the Arya Samaj saffron/maroon. Proposed IA in `requirements.md`.
+
+5. **`make check`** green, then **`make edge-deploy`** to staging
+   (`https://rajkov.suryasoni.info`) — the owner must first add that hostname
+   to prd01's Cloudflare tunnel (Public Hostname → `http://localhost:80`); until
+   then verify stops at the tunnel's 404. Add `deploy/DEPLOYED.md` (ledger).
+
+6. **Cut-over** (owner-driven, later): owner points rajkov.org DNS to
+   Cloudflare → prd01 tunnel, adds `rajkov.org` + `www.rajkov.org` as public
+   hostnames; then `make edge-verify EDGE_URL=https://rajkov.org`. Only after
+   that should the WordPress hosting be cancelled.
+
+## Open decisions — confirm with the owner
+
+1. **Contact form.** WPForms cannot ship on a static site. Options: a mailto
+   button to a committee address (which address?), the existing Microsoft
+   Forms link (membership enquiries already use it), or a hosted form
+   (Formspree/Tally). Hub default: mailto + the Microsoft Form.
+2. **Committee contact details.** The live site lists names only (President
+   Vishal Gupta, VP Rahul Jain, Secretary TBD, Treasurer Ritu Singh, Committee
+   Akshat Soni, Bhoomija Chauhan). Publish emails/phones (behind buttons, as
+   APSASM does) or names only?
+3. **Logo.** The live logo PNG reads **"RAJASTHANI KUMTUMB OF VICTORIA"** —
+   "KUMTUMB" is a typo for "KUTUMB". It also says "EST. 2003" while the copy
+   says formed 2001 / incorporated 2003. Fix the logo (re-set the wordmark in
+   HTML+CSS around the artwork), or ship it as-is?
+4. **Pages to drop.** Hub assumes: Shop, Cart, Checkout, My account, Tickets
+   Checkout, Order Completed (WooCommerce/ticketing — unused), Blog (empty),
+   Sample Page, and the Privacy Policy (lorem ipsum — needs real text or is
+   dropped). **Gangaur 2024** is an empty page — drop, or does the owner have
+   photos for an events gallery?
+5. **Initiatives.** Six announcement-style pages (Spirituality Forum, Global,
+   Stars, Mel Milaap, Cricket & Recreation, Business Network) — keep six pages,
+   or one Initiatives page with sections + a page only for Business Network
+   (it has a directory PDF)?
+6. **"Website by Nikhil Soni"** footer credit — keep?
+7. **Staging hostname** `rajkov.suryasoni.info` (house pattern: apsasm/garc on
+   `suryasoni.info`) — OK?
+8. **Partnership PDFs (MoUs).** The live site embeds five MoU PDFs via
+   EmbedPress. Ship as plain download links (hub default), or inline
+   `<object>` viewers?
+
+## Conventions (short)
+
+- Static, no build step, `www/` is exactly what ships. See `AGENTS.md`.
+- Commit after every deploy; tag releases; row in `deploy/DEPLOYED.md`.
+- Feature work follows the `compass` skill.

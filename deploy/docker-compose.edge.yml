@@ -1,0 +1,35 @@
+# rajkov.org on prd01, behind the shared `edge` Caddy (~/projects/edge → /opt/edge).
+#
+# Publishes NO host port: it joins the external `edge` network under the alias
+# `rajkov`, which is the name deploy/caddy/rajkov.caddy proxies to. Nothing here
+# is reachable except through the edge. One container serves production
+# (rajkov.org) and the staging mirror (rajkov.suryasoni.info); the edge tells
+# the hostnames apart. Pattern lifted from garc-raj.com (Caddy origin, not
+# nginx — see that repo's story 007 for the two nginx footguns it avoids).
+name: rajkov
+
+services:
+  web:
+    image: caddy:2-alpine
+    container_name: rajkov-web
+    restart: unless-stopped
+    mem_limit: 64m
+    read_only: true
+    # Caddy writes config/data under XDG dirs on startup; with a read-only
+    # rootfs they must point at the tmpfs below or it will not boot.
+    environment:
+      XDG_CONFIG_HOME: /tmp
+      XDG_DATA_HOME: /tmp
+    tmpfs:
+      - /tmp
+    volumes:
+      - ./www:/srv:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    networks:
+      edge:
+        aliases:
+          - rajkov
+
+networks:
+  edge:
+    external: true   # owned by the `edge` project (~/projects/edge)

@@ -1,0 +1,65 @@
+# rajkov.org — the ORIGIN config. Serves www/ inside this app's own container,
+# behind the shared edge Caddy. deploy/caddy/rajkov.caddy is a different file
+# with a different job: that one routes hostnames at the edge, this one serves
+# files.
+#
+# Every response is stamped `X-Robots-Tag: noindex, nofollow`. That is correct
+# for the staging mirror and fatal for production — so the EDGE strips the
+# header on the production hostnames only (see deploy/caddy/rajkov.caddy).
+# Do not drop the header here: that would make staging indexable.
+
+{
+	auto_https off          # the tunnel + edge terminate TLS; plain :80 inside the edge net
+	storage file_system {
+		root /tmp/caddy     # read-only rootfs → tmpfs (see compose)
+	}
+}
+
+(common_headers) {
+	header {
+		X-Robots-Tag "noindex, nofollow"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		X-Frame-Options "SAMEORIGIN"
+		-Server
+	}
+}
+
+:80 {
+	root * /srv
+	encode gzip zstd
+
+	# The edge's active health check. Must not be a real page.
+	handle /healthz {
+		import common_headers
+		respond "ok" 200
+	}
+
+	# Versioned assets (styles.css?v=N) and downloads: cache for an hour. The
+	# ?v=N bump is what busts caches on change (see AGENTS.md § caching).
+	handle /assets/* {
+		import common_headers
+		header Cache-Control "public, max-age=3600"
+		file_server
+	}
+	handle /downloads/* {
+		import common_headers
+		header Cache-Control "public, max-age=3600"
+		file_server
+	}
+
+	# HTML is always revalidated so a deploy shows immediately.
+	handle {
+		import common_headers
+		header Cache-Control "no-cache"
+		# Clean URLs: /about → /about.html, /news/ → /news/index.html
+		try_files {path} {path}.html {path}/index.html
+		file_server
+	}
+
+	handle_errors {
+		@404 expression {http.error.status_code} == 404
+		rewrite @404 /404.html
+		file_server
+	}
+}

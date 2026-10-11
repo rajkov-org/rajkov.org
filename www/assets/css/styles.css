@@ -1,0 +1,3 @@
+/* rajkov.org — single stylesheet; design tokens go at the top (see AGENTS.md) */
+:root{--container:1140px}
+.container{max-width:var(--container);margin:0 auto;padding:0 20px}

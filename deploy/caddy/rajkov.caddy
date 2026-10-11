@@ -1,0 +1,53 @@
+# Edge route fragment for rajkov.org. OWNED by this repo; shipped to
+# prd01:/opt/edge/conf.d/rajkov.caddy by `make edge-route`, which then reloads
+# the edge Caddy (atomic — a bad fragment is rejected, the running config keeps
+# serving). `rajkov` resolves on the shared `edge` network to this project's
+# origin container (deploy/docker-compose.edge.yml).
+#
+# Hostnames only arrive here once they exist as Public Hostnames on prd01's
+# Cloudflare tunnel (→ http://localhost:80). Until then cloudflared answers
+# with its own 404 and these blocks are inert but harmless.
+
+# PRODUCTION — apex is canonical. The origin stamps every response with
+# X-Robots-Tag: noindex (right for staging); it is stripped HERE, for the
+# production host only. Do not "fix" this at the origin.
+http://rajkov.org {
+	reverse_proxy {
+		dynamic a {
+			name rajkov
+			port 80
+			refresh 2s
+			resolvers 127.0.0.11
+			versions ipv4
+		}
+		header_down -X-Robots-Tag
+		health_uri /healthz
+		health_port 80
+		health_interval 5s
+		health_timeout 2s
+		health_status 200
+	}
+}
+
+# www → apex.
+http://www.rajkov.org {
+	redir https://rajkov.org{uri} permanent
+}
+
+# STAGING MIRROR — keeps the origin's X-Robots-Tag, so it is never indexed.
+http://rajkov.suryasoni.info {
+	reverse_proxy {
+		dynamic a {
+			name rajkov
+			port 80
+			refresh 2s
+			resolvers 127.0.0.11
+			versions ipv4
+		}
+		health_uri /healthz
+		health_port 80
+		health_interval 5s
+		health_timeout 2s
+		health_status 200
+	}
+}
