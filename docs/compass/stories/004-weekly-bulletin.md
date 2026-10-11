@@ -81,6 +81,7 @@ Follow-up 2026-10-11 (owner: "background music is missing"): the generator had n
 Added `mix()` in `generate.py` (intro sting → loudness-matched voice over a looped bed → outro
 sting; tickerlab's CC BY 4.0 assets, credit on the page + in the ID3 comment), kept the dry
 narration for `--remix`, re-mixed the live edition (en 143 s, raj 157 s, both ≈ −17 LUFS).
+Second pass the same evening: bed raised from −25 dB (owner heard only the stings) to −16 dB.
 
 ## Notes
 

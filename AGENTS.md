@@ -129,7 +129,7 @@ is the `news-bulletin` skill on dev01. Pipeline (`bulletin/run.sh`, systemd **us
    transcript keeps proper spelling. Prices from key-less APIs; kahavat from the curated
    `idioms.json`; RAJKOV notices from `events.json`. **Music is baked into the MP3** (the file
    travels alone on WhatsApp): intro sting → voice (loudness-matched to −16 LUFS, the two Kokoro
-   voices differ by ~6 dB) over a looped bed at `BULLETIN_BED_DB` (−25) → outro sting. The assets
+   voices differ by ~6 dB) over a looped bed at `BULLETIN_BED_DB` (−16, ≈14 dB under the voice; −25 was inaudible on a phone — owner, 2026-10-11) → outro sting. The assets
    are tickerlab's (`bulletin/assets/`, **CC BY 4.0** — the credit line under each player and the
    MP3 ID3 comment are REQUIRED). The dry narration is kept as `out/<date>/<lang>-voice.mp3` so
    `generate.py --date D --remix` re-mixes without re-running TTS; `publish.py` retires it with the edition.
