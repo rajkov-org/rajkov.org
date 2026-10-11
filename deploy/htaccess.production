@@ -32,15 +32,17 @@ ServerSignature Off
   RewriteRule ^(wp-admin|wp-login\.php|wp-json|xmlrpc\.php|feed)(/.*)?$ - [R=410,L]
 
   # /about/ and /about.html → /about
-  RewriteRule ^([a-z0-9-]+)/$ /$1 [R=301,L]
-  RewriteCond %{THE_REQUEST} \s/([a-z0-9-]+)\.html[\s?] [NC]
+  RewriteRule ^([a-z0-9/-]+[a-z0-9])/$ /$1 [R=301,L]
+  RewriteCond %{THE_REQUEST} \s/([a-z0-9/-]+)\.html[\s?] [NC]
   RewriteRule ^ /%1 [R=301,L]
 
   # clean URLs: /about → about.html
+  # /bulletin is both a page (bulletin.html) and a folder (bulletin/<date>.html, audio/, img/)
+  RewriteRule ^bulletin/?$ /bulletin.html [L]
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{DOCUMENT_ROOT}/$1.html -f
-  RewriteRule ^([a-z0-9-]+)$ /$1.html [L]
+  RewriteRule ^([a-z0-9/-]+)$ /$1.html [L]
 </IfModule>
 
 ErrorDocument 404 /404.html
