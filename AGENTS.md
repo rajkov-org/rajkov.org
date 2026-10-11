@@ -11,7 +11,7 @@ No build step, no framework. What is in `www/` is exactly what ships.
 
 - Production: https://rajkov.org (apex canonical; www redirects)
 - Staging: https://rajkov.suryasoni.info (noindex)
-- Repo: github.com/spsoni/rajkov.org (private)
+- Repo: github.com/rajkov-org/rajkov.org (org `rajkov-org`; **public** as of 2026-10-11 — the owner may flip it to private)
 - Host: prd01, behind the shared `edge` Caddy (`/opt/edge`), per the
   `edge-onboard` skill.
 

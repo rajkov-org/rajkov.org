@@ -21,7 +21,7 @@ confirmation (decided 2026-10-11 — see `docs/compass/stories/001-static-rebuil
 2. Same craft as aryasamajofmelbourne.com: hand-built HTML + one CSS + a little
    JS, accessible, responsive, fast, SEO basics done (titles, descriptions,
    OG, JSON-LD, sitemap, canonical).
-3. Maintained in GitHub (`spsoni/rajkov.org`, private), deployed to prd01
+3. Maintained in GitHub (`rajkov-org/rajkov.org`; moved from the hub's `spsoni/rajkov.org` plan on 2026-10-11), deployed to prd01
    behind the shared edge Caddy, with a staging mirror.
 4. Content carried over faithfully — minus anything injected/spam, and minus
    dead WooCommerce/ticketing scaffolding.
