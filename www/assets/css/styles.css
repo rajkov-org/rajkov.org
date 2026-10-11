@@ -175,6 +175,8 @@ strong { font-weight: 700; }
 .nav-links a[aria-current="page"] { color: var(--turban); box-shadow: inset 0 -2px 0 var(--saffron); border-radius: 8px 8px 0 0; }
 .nav-cta { margin-left: .4rem; }
 .nav-cta .btn { padding: .55rem 1.1rem; font-size: .92rem; }
+.nav-cta .btn-primary { background: var(--turban); color: #fff; }
+.nav-cta .btn-primary:hover { background: var(--turban-dark); color: #fff; }
 .nav-cta .btn[aria-current] { box-shadow: none; }
 
 .nav-toggle {
