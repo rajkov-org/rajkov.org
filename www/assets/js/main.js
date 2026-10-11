@@ -95,19 +95,3 @@
     });
   });
 })();
-
-/* On any host other than rajkov.org (staging), point WhatsApp share links at the current host so a
-   test share previews the page you are looking at; the canonical/OG tags still name rajkov.org. */
-(function () {
-  if (location.hostname === "rajkov.org" || location.protocol === "file:") return;
-  var prod = "https://rajkov.org/";
-  document.querySelectorAll('a[href^="https://wa.me/"]').forEach(function (a) {
-    try {
-      var u = new URL(a.href); var t = u.searchParams.get("text") || "";
-      if (t.indexOf(prod) !== -1) { u.searchParams.set("text", t.split(prod).join(location.origin + "/")); a.href = u.toString(); }
-    } catch (e) {}
-  });
-  document.querySelectorAll("[data-share-text]").forEach(function (b) {
-    b.setAttribute("data-share-text", b.getAttribute("data-share-text").split(prod).join(location.origin + "/"));
-  });
-})();
