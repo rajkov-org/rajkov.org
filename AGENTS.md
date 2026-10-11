@@ -45,12 +45,14 @@ Supporting files stay at the repo root, never inside `www/`.
   link in `www/` must be one we chose on purpose (partners, Microsoft Form).
 - No third-party scripts. No analytics unless the owner asks. Fonts self-hosted
   or from Google Fonts only.
-- Contact details appear only as the owner decided (Microsoft Form only, names only — story 001).
+- Contact details appear only as the owner decided (secretary@rajkov.org + Microsoft Form for membership; names only — story 001).
 - Don't rename files once live (URLs/bookmarks/sitemap break). Old WordPress
   URLs (`/about-us/`, `/rajkov-stars/`, …) are 301'd to the new pages in
   `deploy/Caddyfile`; keep those redirects.
-- Contact is **Microsoft Form only** (owner decision 2026-10-11): no email
-  addresses or phone numbers in page copy. Committee = names + roles.
+- Contact: general committee contact is **secretary@rajkov.org** (owner,
+  2026-10-11, amending the earlier form-only decision); **membership enquiries**
+  go to the Microsoft Form. No phone numbers and no personal emails in page
+  copy. Committee = names + roles.
 - Logo: `www/assets/img/rajkov-logo.png` is the corrected "KUTUMB" artwork
   (it was `Proposed-Resolution-…png` in the WordPress uploads).
 
