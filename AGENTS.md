@@ -75,6 +75,67 @@ Supporting files stay at the repo root, never inside `www/`.
 - Full `.container` for heroes; `.article-body` (left-aligned, max-width) for
   prose. Devanagari text set in a font that has it (e.g. Noto Serif Devanagari).
 
+## File naming (assets, downloads, pages)
+
+- **Lowercase, hyphen-separated, descriptive, no dates in page names.** Say what
+  the file *is*, not where it came from: `rajasthani-decorated-camel-sunset.webp`,
+  `rajkov-teej-utsav-2026-flyer.webp`, `rajasthan-association-france-raf-logo.png`,
+  `rajkov-rana-memorandum-of-understanding-2024.pdf`. Never `IMG_1234.jpeg`,
+  `WhatsApp-Image-…`, `image-3-e1712…png`, `hero-1.webp`, `poster.jpg`.
+- Suffix by role: `-logo`, `-flyer`, `-poster`, `-icon-192`; year last when the
+  document is dated (`…-2024.pdf`).
+- Photos → `.webp` (ffmpeg `-c:v libwebp -quality 80–85`, ≤1200 px wide unless
+  it is a hero); logos → `.png` if they came as PNG, `.webp` otherwise;
+  documents → `.pdf`. Always set `width`/`height` on `<img>`.
+- The whole tree was renamed to this convention on 2026-10-11 while the site was
+  on staging only. **After production go-live, never rename a published file**
+  (bookmarks, search results, partner links, sitemap). Add a new file and a
+  301 in `deploy/Caddyfile` instead.
+
+## SEO conventions
+
+- `<title>` ≤ 60 characters, pattern `<what this page is> | RAJKOV` (home:
+  `RAJKOV — Rajasthani Kutumb of Victoria, Melbourne`). One `<h1>` per page.
+- `meta description` 120–160 characters, a sentence a human would click on, no
+  keyword lists.
+- Canonical is the clean URL on `https://rajkov.org` (`/about`, never
+  `/about.html`); the origin serves both, the canonical de-duplicates them.
+- Every page: OG + Twitter meta with an absolute `og:image`; inner pages carry
+  `BreadcrumbList` JSON-LD; home carries `Organization` + `WebSite`; `/events`
+  carries one `Event` per flyer; `/contact` carries `ContactPage`.
+- Link text names the destination (`About RAJKOV Stars →`), never
+  `Learn more` / `Click here`.
+- `alt` describes the picture; a logo next to its own name gets `alt="<Name> logo"`;
+  purely decorative images (the brand mark beside hidden text) get `alt=""`.
+- Staging is `noindex` via the origin header; production strips it at the edge.
+  `sitemap.xml` lists every indexable page; `404.html` is `noindex`.
+
+## Lessons learned (keep this list current)
+
+- **`curl | grep -q` under `pipefail` lies.** grep exits on the first match,
+  curl gets SIGPIPE and the pipeline fails. `deploy/verify.sh` buffers the body
+  first (`body=$(curl …); grep … <<<"$body"`). Found on the first staging deploy.
+- **No emoji in markup.** The headless Chromium on dev01 (and some phones) has
+  no emoji font → tofu boxes. Icons are inline SVG via the generator's `icon()`.
+- **Percentage `max-height` does nothing inside an auto-sized grid cell.** Use
+  pixel limits on logo boxes (`.sponsor-logo img { max-height: 110px }`).
+- **Cloudflare rewrites `mailto:` on the wire** (Email Address Obfuscation →
+  `/cdn-cgi/l/email-protection`). The origin HTML is right; grep the origin, not
+  the edge, when verifying addresses. Turn it off under Scrape Shield if plain
+  addresses are wanted.
+- **Hand edits and the generator drift.** Pages are stamped by a generator kept
+  in the session scratchpad (header/footer byte-identical, `?v=N` bumps). When
+  someone edits `www/*.html` by hand (as upstream did for the 2026 flyers), port
+  the edit into the generator first and confirm a regeneration changes nothing
+  else (`git status` should show only the intended files).
+- **Sponsor/partner logos usually arrive only inside a composite flyer.** Crop
+  from the highest-resolution source available (ffmpeg `crop` + 2× lanczos) and
+  ask the sponsor for the real file; store the crop under the final name.
+- **Docker image pulls can fail transiently** (`containerd … ingest … no such
+  file`). Re-run `docker pull caddy:2-alpine`, then `make check` again.
+- **The repo is public** (`rajkov-org/rajkov.org`): never commit credentials,
+  member lists, or anything beyond what the website itself publishes.
+
 ## Gate + deploy
 
 ```
