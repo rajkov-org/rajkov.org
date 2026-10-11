@@ -1,7 +1,7 @@
 # Story 004 — weekly-bulletin (RAJKOV Weekly Rajasthan Bulletin, English + Rajasthani)
 
-**Status:** in-progress — draft edition generated 2026-10-11 for committee approval; nothing
-scheduled or published yet.
+**Status:** in-progress — first edition LIVE on https://rajkov.org/bulletin 2026-10-11 (owner
+instructed unattended production deploy); Sunday timer written, NOT enabled pending committee.
 **Depends on:** 001 (site live), 003 (production on the shared host via FTPS).
 
 ## Goal
@@ -58,15 +58,24 @@ link-preview metadata (og:title/description, an og:image per edition at 1200×63
       (`bulletin/pronounce.json`) judged good on before/after samples.
 - [ ] Committee approves tone, greeting and sections, or returns changes; idiom list
       vetted by a native speaker.
-- [ ] `publish.py` writes `www/bulletin/<date>/index.html` + transcript, updates the archive
-      index and `feed.xml`, commits text only, uploads the mp3s + pages by FTPS, prunes audio
-      older than 4 weeks on prod — proven by a dry run then a real run, and `ls` on the host.
+- [x] `publish.py` writes `www/bulletin/<date>.html` + `www/bulletin.html` + `feed.xml` +
+      preview JPEG, syncs `sitemap.xml`; audio copied to `www/bulletin/audio/` (gitignored) and
+      retired after 28 days (`make ftp-prune` removes it on prod) — evidence 2026-10-11: dry run
+      against the v2 archive, then the real edition; `make check` 459/459; prod URLs 200 and
+      301s verified (DEPLOYED.md `prod-2026-10-11c`). Retention proof pending week 5.
 - [ ] Timer on dev01 fires Sunday 17:00 Australia/Melbourne (`systemctl --user list-timers`),
       run time < 30 min, non-zero exit + owner email on a failed run (nothing published).
-- [ ] Live page passes `make check` (header/footer identical, links, html-validate), player
-      works on iPhone Safari and Android Chrome, podcast feed validates.
+- [x] Live page passes `make check`; OG/Twitter tags, BreadcrumbList + PodcastEpisode JSON-LD
+      and feed.xml validated by script 2026-10-11. [ ] Owner to confirm player + "Share audio
+      file" on iPhone Safari and Android Chrome.
 - [ ] Rotation proof: after the 5th week the first week's mp3 is gone from prod, its
       transcript page still serves.
+
+Decisions during the build (2026-10-11): WhatsApp link button removed (WhatsApp shows only a
+static card for non-YouTube domains); audio attachment via Web Share is the share path; a
+YouTube channel upload is the candidate follow-up for playable previews. Fact-check pass
+(haiku) + condense pass added after the model called a badminton final "tennis" and overshot
+the length; LLM calls retry on gateway timeouts; sources list links to each article (new tab).
 
 ## Notes
 
