@@ -48,6 +48,31 @@
 		file_server
 	}
 
+	# Old WordPress URLs (with or without trailing slash) → new clean URLs, so
+	# bookmarks, search results and partner links keep working after cut-over.
+	@old_about        path /about-us /about-us/
+	@old_constitution path /our-constitution /our-constitution/
+	@old_bylaws       path /our-by-laws /our-by-laws/
+	@old_rbn          path /rajkov-business-network /rajkov-business-network/
+	@old_spirit       path /rajkov-spirituality-forum /rajkov-spirituality-forum/
+	@old_global       path /rajkov-global /rajkov-global/
+	@old_stars        path /rajkov-stars /rajkov-stars/
+	@old_melmilaap    path /rajkov-mel-milaap /rajkov-mel-milaap/
+	@old_cricket      path /rajkov-cricket-recreation /rajkov-cricket-recreation/
+	@old_gangaur      path /gangaur-2024 /gangaur-2024/
+	@old_slash        path /partnerships/ /contact/ /about/ /initiatives/ /events/ /membership/ /constitution/ /by-laws/ /business-network/
+	redir @old_about        /about permanent
+	redir @old_constitution /constitution permanent
+	redir @old_bylaws       /by-laws permanent
+	redir @old_rbn          /business-network permanent
+	redir @old_spirit       /initiatives#spirituality-forum permanent
+	redir @old_global       /initiatives#global permanent
+	redir @old_stars        /initiatives#stars permanent
+	redir @old_melmilaap    /initiatives#mel-milaap permanent
+	redir @old_cricket      /initiatives#cricket-recreation permanent
+	redir @old_gangaur      /events permanent
+	redir @old_slash        {http.request.uri.path.0} permanent
+
 	# HTML is always revalidated so a deploy shows immediately.
 	handle {
 		import common_headers

@@ -9,4 +9,5 @@ content was exported into `source/wordpress/`.
 
 - `make help` — targets
 - `AGENTS.md` — how the codebase works
-- `KICKOFF.md` — the handoff for the rebuild (temporary)
+- `docs/compass/` — stories + status board; `docs/security-sweep.md` — audit of the WordPress export
+- `source/wordpress/` — the scraped WordPress export (read-only, untrusted; never served)

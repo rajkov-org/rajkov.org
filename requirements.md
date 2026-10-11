@@ -2,7 +2,7 @@
 
 Captured by the hub session on 2026-10-11 from the owner's brief plus a scout of
 the live site. Items marked **(assumed)** are hub defaults awaiting owner
-confirmation (see KICKOFF.md § Open decisions).
+confirmation (decided 2026-10-11 — see `docs/compass/stories/001-static-rebuild.md`).
 
 ## Owner's brief (verbatim intent)
 
