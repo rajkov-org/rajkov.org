@@ -6,7 +6,7 @@
 > gets a story. The prd01/edge path stays in place as staging and as the future
 > home; this story does not touch DNS, Cloudflare or email.
 
-**Status:** in-progress
+**Status:** done (production live 2026-10-11)
 **Depends on:** 001 (built + verified on staging)
 
 ## Goal
@@ -17,8 +17,10 @@ After this, rajkov.org serves exactly what staging serves, indexable, with the
 same clean URLs, redirects and headers expressed as `.htaccess` instead of a
 Caddyfile.
 
-Interpretation: "full backup" = every file in the FTP account (not just the
-document root), mirrored to dev01 with a manifest. The WordPress **database**
+Interpretation as first written: "full backup" = mirror the account to dev01.
+**Owner changed this mid-story:** nothing is to be downloaded to dev01; the
+backup is a server-side move of `public_html` into `wordpress-backups/`
+(a cPanel `rajkov.org__2026-10-11T19_32_43+1100.tar.gz` was already there). The WordPress **database**
 is not reachable over FTP; the content is already in `source/wordpress/`
 (REST export + rendered HTML). If the owner wants the SQL too, that is a
 cPanel/phpMyAdmin export they do themselves before step 3.
@@ -34,13 +36,13 @@ cPanel/phpMyAdmin export they do themselves before step 3.
 - NOT: `www/**` (ships as is), DNS, Cloudflare, the prd01 deploy, email
 
 ## Acceptance check (how we verify)
-- [ ] `make ftp-backup` completes; `manifest.tsv` has no `ERROR` rows; count + bytes recorded here; a spot-check restores one upload and one PHP file byte-identical
-- [ ] `make ftp-retire` moves every entry of the document root into `_retired-wordpress-<date>/` with a deny-all `.htaccess`; `curl -I https://rajkov.org/_retired-wordpress-<date>/wp-login.php` is 404/403, not 200
-- [ ] `make ftp-upload` puts `www/` + `.htaccess` in the document root
-- [ ] `make ftp-verify` → `deploy/verify.sh https://rajkov.org` prints PASS (healthz is a Caddy-only route — see Notes), all pages 200, **no** `X-Robots-Tag`
-- [ ] Redirect table works live: `/about-us/` → `/about`, `/rajkov-stars/` → `/initiatives#stars`, `www.` → apex, `/about.html` → `/about`, `/wp-login.php` → 410
-- [ ] `https://rajkov.org/` serves the new homepage (title "RAJKOV — Rajasthani Kutumb of Victoria, Melbourne"); no PHP banner (`x-powered-by` gone)
-- [ ] Row in `deploy/DEPLOYED.md`; owner told the backup location and what remains (DB, hosting account) to clean up
+- [x] ~~`make ftp-backup`~~ replaced by `make ftp-archive`: `public_html` → `wordpress-backups/public_html-20261011` (server-side rename, verified by listing); owner declined any download
+- [x] Old install is outside the web root: `https://rajkov.org/wordpress-backups/public_html-20261011/wp-login.php` → 404; `/wp-login.php`, `/xmlrpc.php` → 410
+- [x] `make ftp-upload` put 54 files (`www/` + `.htaccess`) into the fresh `public_html`
+- [x] `make ftp-verify` → PASS: healthz 200 (static `www/healthz`), 10/10 pages 200, production indexable, homepage content
+- [x] Live: `/about-us/` → 301 `/about`; `/rajkov-stars/` → 301 `/initiatives#stars`; `/about.html` → 301 `/about`; `http://www.rajkov.org/` → 301 `https://rajkov.org/`; `/wp-login.php` → 410; `/nope` → our 404 page
+- [x] `https://rajkov.org/` title is "RAJKOV — Rajasthani Kutumb of Victoria, Melbourne"; headers: nosniff, referrer-policy, x-frame-options, HSTS, `cache-control: no-cache` on HTML; `x-powered-by` gone
+- [x] Row in `deploy/DEPLOYED.md`; owner told (chat 2026-10-11): rotate FTP/hosting/WordPress passwords, the DB still exists, delete `wordpress-backups/public_html-20261011` when satisfied, resubmit `sitemap.xml` in Search Console
 
 ## Notes
 - `verify.sh` checks `/healthz`, which only the Caddy origin answers. On the FTP

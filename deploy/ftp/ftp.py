@@ -12,6 +12,7 @@ Commands:
     list   [path]                 show a directory
     backup <local-dir> [paths…]   mirror the FTP account (or just the given remote paths) into <local-dir> (+ manifest.tsv)
     retire                        move every entry in FTP_ROOT into _retired-wordpress-<date>/ and deny web access to it
+    archive <dir>                 server-side move of the whole FTP_ROOT to <dir>/<FTP_ROOT>-<date> (outside the web root), then recreate an empty FTP_ROOT
     upload                        mirror www/ + deploy/htaccess.production (as .htaccess) into FTP_ROOT (adds/updates only)
     prune                         delete files in FTP_ROOT that are not in www/ (never touches _retired-wordpress-*)
 Nothing here stores or prints the password.
@@ -126,6 +127,22 @@ def cmd_retire(ftp, cfg, args):
     deny = b"# Retired WordPress install: nothing in here may be served or executed.\nRequire all denied\n<IfModule !mod_authz_core.c>\nOrder deny,allow\nDeny from all\n</IfModule>\nphp_flag engine off\n"
     ftp.storbinary(f"STOR {root}/{ret}/.htaccess", io.BytesIO(deny)); print(f"  wrote {ret}/.htaccess (deny all)")
 
+def cmd_archive(ftp, cfg, args):
+    if not args: sys.exit("usage: archive <dir>  (e.g. wordpress-backups)")
+    root = cfg["FTP_ROOT"]; dest_dir = args[0].strip("/")
+    stamp = datetime.date.today().strftime("%Y%m%d")
+    dest = f"{dest_dir}/{posixpath.basename(root)}-{stamp}"
+    names = [n for n, t, s in listdir(ftp, "")]
+    if root not in names: sys.exit(f"{root} not found at the FTP root")
+    ensure_dir(ftp, dest_dir)
+    if posixpath.basename(dest) in [n for n, t, s in listdir(ftp, dest_dir)]:
+        sys.exit(f"{dest} already exists — refusing to overwrite")
+    ftp.rename(root, dest); print(f"moved {root} → {dest}")
+    ftp.mkd(root); print(f"created empty {root}/")
+    try: ftp.sendcmd(f"SITE CHMOD 755 {root}")
+    except ftplib.all_errors: pass
+    print("archive done:", dest)
+
 def local_files():
     for d, _, fs in os.walk(WWW):
         for f in fs:
@@ -154,11 +171,11 @@ def cmd_prune(ftp, cfg, args):
     print(f"prune complete: {removed} stray files removed")
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2 or sys.argv[1] not in ("list", "backup", "retire", "upload", "prune"):
+    if len(sys.argv) < 2 or sys.argv[1] not in ("list", "backup", "retire", "archive", "upload", "prune"):
         sys.exit(__doc__)
     cfg = load_env(); ftp = connect(cfg)
     try:
-        {"list": cmd_list, "backup": cmd_backup, "retire": cmd_retire, "upload": cmd_upload, "prune": cmd_prune}[sys.argv[1]](ftp, cfg, sys.argv[2:])
+        {"list": cmd_list, "backup": cmd_backup, "retire": cmd_retire, "archive": cmd_archive, "upload": cmd_upload, "prune": cmd_prune}[sys.argv[1]](ftp, cfg, sys.argv[2:])
     finally:
         try: ftp.quit()
         except Exception: pass

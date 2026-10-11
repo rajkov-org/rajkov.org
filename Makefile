@@ -1,7 +1,7 @@
 # rajkov.org — hand-built static site. `make help` lists targets.
 # Deploys to prd01 behind the shared `edge` Caddy; see AGENTS.md + deploy/.
 .DEFAULT_GOAL := help
-.PHONY: help dev check validate edge-push edge-up edge-route edge-verify edge-deploy ftp-list ftp-backup ftp-retire ftp-upload ftp-prune ftp-verify ftp-deploy
+.PHONY: help dev check validate edge-push edge-up edge-route edge-verify edge-deploy ftp-list ftp-backup ftp-retire ftp-archive ftp-upload ftp-prune ftp-verify ftp-deploy
 
 EDGE_HOST ?= prd01
 EDGE_DIR  ?= /opt/rajkov.org
@@ -64,6 +64,9 @@ ftp-backup:  ## Mirror the FTP account (or BACKUP_PATHS="public_html wordpress-b
 
 ftp-retire:  ## Move everything in the document root into _retired-wordpress-<date>/ and deny access to it
 	@python3 deploy/ftp/ftp.py retire
+
+ftp-archive:  ## Server-side move of public_html to wordpress-backups/public_html-<date>, then recreate it empty
+	@python3 deploy/ftp/ftp.py archive wordpress-backups
 
 ftp-upload: check  ## Upload www/ + deploy/htaccess.production (as .htaccess) to the document root
 	@python3 deploy/ftp/ftp.py upload
