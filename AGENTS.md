@@ -159,6 +159,10 @@ stored in `~/.config/rajkov/llm.env`, never in the repo.
   file`). Re-run `docker pull caddy:2-alpine`, then `make check` again.
 - **`www/healthz` is a real file** ("ok") so `verify.sh` passes on the FTP host too; on
   Caddy the `/healthz` handle answers first, so the file is harmless there.
+- **Changing an image under the same filename does not show up for an hour.** Assets
+  are served with `max-age=3600` and Cloudflare caches them too, so a replaced sponsor
+  logo looked "not updated" on staging. Bump `LOGO_V` in the generator (sponsor `<img>`
+  URLs carry `?v=N`) whenever a logo changes in place; new files get new names anyway.
 - **The repo is public** (`rajkov-org/rajkov.org`): never commit credentials,
   member lists, or anything beyond what the website itself publishes.
 - **The logo is a 647×136 banner with three parts** (couple illustration, text, official
