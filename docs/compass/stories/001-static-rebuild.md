@@ -4,7 +4,7 @@
 > below plus the eight open decisions (one AskUserQuestion round) before pages
 > are built; that review is the plan approval.
 
-**Status:** verifying
+**Status:** done (staging live; production cut-over is story 003)
 **Depends on:** none
 
 ## Goal
@@ -54,10 +54,23 @@ Also: keep Facebook + Instagram links; the two WhatsApp group links are missing 
 - [x] `make check` passes — `Valid configuration` ×2, `359/359 internal references resolve` (2026-10-11)
 - [x] Header + footer byte-identical across all 11 pages (md5 of the header and footer regions: one hash each)
 - [x] Each page has title, description, canonical, OG/Twitter meta; Organization JSON-LD on home, ContactPage on contact; `sitemap.xml` lists all 10 indexable pages; 404 is noindex. Rendered in headless Chromium at 1400px and 390px — screenshots reviewed.
-- [ ] `make edge-deploy` → `deploy/verify.sh https://rajkov.suryasoni.info` prints PASS (output pasted into Notes + `deploy/DEPLOYED.md` row)
-- [ ] Owner has been told, in writing, that the live WordPress is likely compromised and should be retired after cut-over
+- [x] `make edge-deploy` → `deploy/verify.sh https://rajkov.suryasoni.info` prints PASS (2026-10-11; output in Notes and `deploy/DEPLOYED.md`). First run FAILED on the homepage-content check only because `curl | grep -q` under `pipefail` trips on an early pipe close; `verify.sh` now buffers the body.
+- [x] Owner told in writing (chat 2026-10-11 + `docs/security-sweep.md` § 7) that the live WordPress is likely compromised and should be retired after cut-over, and that rajkov.org mail (Microsoft 365 MX/SPF) must be recreated in Cloudflare before DNS moves
 
 ## Notes
 - Source inventory: 22 pages, 0 posts, 42 media files kept in the export (PDF ×11, PNG ×13, JPEG ×14, WebP ×2, SVG ×2). Keep: home, about-us, our-constitution, our-by-laws, partnerships, 6 initiatives, contact. Drop: shop, cart, checkout, my-account, tickets-*, blog, sample-page, privacy-policy-2 (lorem ipsum), gangaur-2024 (empty) — pending decision 4.
 - Reference implementation: `~/projects/aryasamajofmelbourne.com/www` (styles.css tokens at top, main.js nav/reveal, `?v=N` cache busting).
 - Owner decisions: see Goal section above.
+
+Smoke test, 2026-10-11 (second run, after the verify.sh fix):
+
+```
+  verifying https://rajkov.suryasoni.info
+
+  ok   /healthz 200
+  10/10 pages return 200
+  ok   staging noindex (x-robots-tag: noindex, nofollow)
+  ok   homepage content
+
+  PASS
+```

@@ -33,7 +33,10 @@ case "$BASE" in
 esac
 
 # 4. the homepage is ours, not the edge's styled 404 or cloudflared's.
-curl -sS -m 20 "$BASE/?$CB" | grep -qi 'Rajasthani Kutumb' && printf '  ok   homepage content\n' || { printf '  FAIL homepage does not mention Rajasthani Kutumb\n'; fail=1; }
+# (buffer the body first: `curl | grep -q` under pipefail fails with "Failed
+# writing body" as soon as grep closes the pipe on the first match)
+body=$(curl -sS -m 20 "$BASE/?$CB")
+grep -qi 'Rajasthani Kutumb' <<<"$body" && printf '  ok   homepage content\n' || { printf '  FAIL homepage does not mention Rajasthani Kutumb\n'; fail=1; }
 
 [ "$fail" -eq 0 ] && printf '\n  PASS\n\n' || printf '\n  FAIL\n\n'
 exit $fail

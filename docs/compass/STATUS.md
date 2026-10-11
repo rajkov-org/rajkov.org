@@ -4,16 +4,14 @@
 > in the story files, deploy facts live in `deploy/DEPLOYED.md`.
 
 ## Done
-(nothing shipped yet)
+001 — WordPress → static rebuild: live on staging `rajkov.suryasoni.info` 2026-10-11 (see stories/001, deploy/DEPLOYED.md)
 
 ## Now
-001 — WordPress → static rebuild (`stories/001-static-rebuild.md`): built + `make check` green,
-waiting on the staging hostname on the prd01 tunnel → `make edge-deploy`.
+nothing in flight — owner reviewing staging
 
 ## Next
 - 002 — Events gallery (Gangaur etc.) if the owner supplies photos
-- 003 — Production cut-over checklist (owner moves DNS → Cloudflare → prd01), retire WordPress hosting
+- 003 — Production cut-over: owner adds rajkov.org + www to the tunnel, recreates MX/SPF/TXT in Cloudflare, moves DNS; then `make edge-verify EDGE_URL=https://rajkov.org`; then retire WordPress hosting
 
 ## Blocked / decisions needed
 - Owner to supply the RAJKOV Stars + Mel Milaap WhatsApp group links (missing from the export)
-- Staging hostname `rajkov.suryasoni.info` must exist on prd01's Cloudflare tunnel before `make edge-deploy` can pass verify
