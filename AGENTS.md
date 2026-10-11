@@ -57,7 +57,11 @@ Supporting files stay at the repo root, never inside `www/`.
   go to the Microsoft Form; **sponsorship** goes to president@rajkov.org. No
   phone numbers and no personal emails in page copy. Committee = names + roles.
 - Logo: `www/assets/img/rajkov-logo.png` is the corrected "KUTUMB" artwork
-  (it was `Proposed-Resolution-…png` in the WordPress uploads).
+  (it was `Proposed-Resolution-…png` in the WordPress uploads). The **header** (since
+  2026-10-11, owner go-ahead) does not use the banner: it shows `rajkov-logo-couple.png` +
+  live text (Est. 2003 / Rajasthani Kutumb of Victoria / पधारो म्हारे देस, `.brand-text`) +
+  `rajkov-logo-vijay-stambh.png`, both cut from the banner with the white keyed out. The
+  footer and the by-laws page still show the full banner.
 
 ## Coding conventions (same as aryasamajofmelbourne.com)
 

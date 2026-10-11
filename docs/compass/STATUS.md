@@ -9,7 +9,7 @@
 
 ## Now
 - 004 — Weekly Rajasthan Bulletin (en + Rajasthani, Sunday 17:00 Melbourne): voices + pronunciation approved by owner; first edition LIVE on rajkov.org/bulletin 2026-10-11; Sunday timer written but NOT enabled until committee go (stories/004)
-- Logo: split the banner into couple mark + live text + official Vijay Stambh — analysis sent to owner 2026-10-11; awaiting go-ahead (no story: small change)
+- Logo: header split into couple mark + live text + Vijay Stambh — DONE 2026-10-11 (owner go-ahead; styles v8); footer/by-laws keep the banner
 - Sponsor logo watch: `tools/logo-watch.py` + monthly user timer on dev01 (owner's standing instruction 2026-10-11)
 
 ## Next
