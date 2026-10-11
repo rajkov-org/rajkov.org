@@ -47,8 +47,11 @@ Interpretation of the owner's instructions (2026-10-11, mid-session):
 - [x] Draft edition generated end to end on dev01 from live feeds, live prices and the idiom
       list, both languages, with MP3s — evidence: `bulletin/out/2026-10-11/meta.json` (see
       Notes), files sent to the owner 2026-10-11.
-- [ ] Committee approves tone, greeting, sections, voices (en `af_heart`, raj `hf_alpha`) —
-      or returns changes; idiom list vetted by a native speaker.
+- [x] Owner approved the audio 2026-10-11: voices en `af_heart` (same as the ebook
+      audiobooks, locked) and raj `hf_alpha`; speech-only pronunciation map
+      (`bulletin/pronounce.json`) judged good on before/after samples.
+- [ ] Committee approves tone, greeting and sections, or returns changes; idiom list
+      vetted by a native speaker.
 - [ ] `publish.py` writes `www/bulletin/<date>/index.html` + transcript, updates the archive
       index and `feed.xml`, commits text only, uploads the mp3s + pages by FTPS, prunes audio
       older than 4 weeks on prod — proven by a dry run then a real run, and `ls` on the host.
