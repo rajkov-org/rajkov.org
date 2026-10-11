@@ -1,7 +1,7 @@
 # rajkov.org — hand-built static site. `make help` lists targets.
 # Deploys to prd01 behind the shared `edge` Caddy; see AGENTS.md + deploy/.
 .DEFAULT_GOAL := help
-.PHONY: help dev check validate edge-push edge-up edge-route edge-verify edge-deploy
+.PHONY: help dev check validate edge-push edge-up edge-route edge-verify edge-deploy ftp-list ftp-backup ftp-retire ftp-upload ftp-prune ftp-verify ftp-deploy
 
 EDGE_HOST ?= prd01
 EDGE_DIR  ?= /opt/rajkov.org
@@ -51,3 +51,27 @@ edge-verify:  ## Smoke-test the live URL (never trust exit 0)
 	@bash deploy/verify.sh $(EDGE_URL)
 
 edge-deploy: edge-push edge-up edge-route edge-verify  ## Full deploy: content + container + route + smoke test
+
+# ---- Shared LiteSpeed host (the original rajkov.org hosting) over FTPS.
+# Credentials live in ~/.config/rajkov/ftp.env (never in the repo). See deploy/ftp/ftp.py.
+BACKUP_DIR ?= $(HOME)/backups/rajkov.org-ftp-$(shell date +%Y%m%d)
+
+ftp-list:  ## Show the FTP account's top-level directory
+	@python3 deploy/ftp/ftp.py list
+
+ftp-backup:  ## Mirror the WHOLE FTP account to $(BACKUP_DIR) (resumable)
+	@python3 deploy/ftp/ftp.py backup "$(BACKUP_DIR)"
+
+ftp-retire:  ## Move everything in the document root into _retired-wordpress-<date>/ and deny access to it
+	@python3 deploy/ftp/ftp.py retire
+
+ftp-upload: check  ## Upload www/ + deploy/htaccess.production (as .htaccess) to the document root
+	@python3 deploy/ftp/ftp.py upload
+
+ftp-prune:  ## Delete stray files in the document root that are not in www/
+	@python3 deploy/ftp/ftp.py prune
+
+ftp-verify:  ## Smoke-test https://rajkov.org (production rules: indexable)
+	@bash deploy/verify.sh https://rajkov.org
+
+ftp-deploy: ftp-upload ftp-verify  ## Upload + smoke test (run ftp-backup and ftp-retire first, once)

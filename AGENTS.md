@@ -9,7 +9,10 @@ The website of **Rajasthani Kutumb of Victoria Inc. (RAJKOV)**, Melbourne —
 a hand-built **static site**: plain HTML + one CSS file + a little vanilla JS.
 No build step, no framework. What is in `www/` is exactly what ships.
 
-- Production: https://rajkov.org (apex canonical; www redirects)
+- Production: https://rajkov.org (apex canonical; www redirects) — currently on
+  the original shared LiteSpeed host, deployed over FTPS with `make ftp-deploy`
+  (`deploy/htaccess.production` is the Caddyfile's twin; keep them in step).
+  Credentials: `~/.config/rajkov/ftp.env` on dev01, never in the repo.
 - Staging: https://rajkov.suryasoni.info (noindex)
 - Repo: github.com/rajkov-org/rajkov.org (org `rajkov-org`; **public** as of 2026-10-11 — the owner may flip it to private)
 - Host: prd01, behind the shared `edge` Caddy (`/opt/edge`), per the
@@ -133,6 +136,8 @@ Supporting files stay at the repo root, never inside `www/`.
   ask the sponsor for the real file; store the crop under the final name.
 - **Docker image pulls can fail transiently** (`containerd … ingest … no such
   file`). Re-run `docker pull caddy:2-alpine`, then `make check` again.
+- **`www/healthz` is a real file** ("ok") so `verify.sh` passes on the FTP host too; on
+  Caddy the `/healthz` handle answers first, so the file is harmless there.
 - **The repo is public** (`rajkov-org/rajkov.org`): never commit credentials,
   member lists, or anything beyond what the website itself publishes.
 
@@ -141,8 +146,11 @@ Supporting files stay at the repo root, never inside `www/`.
 ```
 make check         # Caddy configs validate + every internal link/asset resolves
 make dev           # serve www/ locally with the real origin Caddyfile (:8086)
-make edge-deploy   # push www/ + config → recreate container → ship route → smoke test
-make edge-verify   # smoke test only (EDGE_URL=https://rajkov.org for prod)
+make edge-deploy   # push www/ + config → recreate container → ship route → smoke test (staging)
+make edge-verify   # smoke test only (EDGE_URL=… to point elsewhere)
+make ftp-backup    # mirror the whole FTP account to ~/backups (once, before the first cut-over)
+make ftp-retire    # move the old WordPress out of the web root, deny-all (once)
+make ftp-deploy    # upload www/ + .htaccess over FTPS → smoke test https://rajkov.org (production)
 ```
 
 Never trust `caddy reload` exit 0 — `deploy/verify.sh` asks the live URL.

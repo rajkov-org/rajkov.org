@@ -1,0 +1,82 @@
+# rajkov.org — static site on the shared LiteSpeed host (Apache-compatible rules).
+# This file is the FTP-host equivalent of deploy/Caddyfile. Keep the two in step:
+# clean URLs, old-WordPress redirects, 404 page, security headers, caching.
+# PRODUCTION: no X-Robots-Tag here — this host is meant to be indexed.
+
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+AddDefaultCharset UTF-8
+ServerSignature Off
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # https + apex are canonical
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://rajkov.org%{REQUEST_URI} [R=301,L]
+
+  # Old WordPress URLs → new clean URLs (same table as deploy/Caddyfile)
+  RewriteRule ^about-us/?$                    /about                          [R=301,L]
+  RewriteRule ^our-constitution/?$            /constitution                   [R=301,L]
+  RewriteRule ^our-by-laws/?$                 /by-laws                        [R=301,L]
+  RewriteRule ^rajkov-business-network/?$     /business-network               [R=301,L]
+  RewriteRule ^rajkov-spirituality-forum/?$   /initiatives#spirituality-forum [R=301,L,NE]
+  RewriteRule ^rajkov-global/?$               /initiatives#global             [R=301,L,NE]
+  RewriteRule ^rajkov-stars/?$                /initiatives#stars              [R=301,L,NE]
+  RewriteRule ^rajkov-mel-milaap/?$           /initiatives#mel-milaap         [R=301,L,NE]
+  RewriteRule ^rajkov-cricket-recreation/?$   /initiatives#cricket-recreation [R=301,L,NE]
+  RewriteRule ^gangaur-2024/?$                /events                         [R=301,L]
+  # WordPress-only paths that no longer exist
+  RewriteRule ^(shop|cart|checkout|my-account|tickets-checkout|tickets-order|blog|sample-page|privacy-policy-2)/?$ / [R=301,L]
+  RewriteRule ^(wp-admin|wp-login\.php|wp-json|xmlrpc\.php|feed)(/.*)?$ - [R=410,L]
+
+  # /about/ and /about.html → /about
+  RewriteRule ^([a-z0-9-]+)/$ /$1 [R=301,L]
+  RewriteCond %{THE_REQUEST} \s/([a-z0-9-]+)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # clean URLs: /about → about.html
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+  RewriteRule ^([a-z0-9-]+)$ /$1.html [L]
+</IfModule>
+
+ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html
+
+# Nothing executable is served from this document root.
+<FilesMatch "\.(php|phtml|php[0-9]|phar|cgi|pl|py|sh)$">
+  Require all denied
+</FilesMatch>
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+# Dotfiles, backups and the retired WordPress tree are never served.
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 ^/_retired-wordpress
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always unset X-Powered-By
+  Header always set Strict-Transport-Security "max-age=31536000"
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\.(css|js|webp|png|jpg|jpeg|ico|svg|pdf|webmanifest)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType application/manifest+json .webmanifest
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
