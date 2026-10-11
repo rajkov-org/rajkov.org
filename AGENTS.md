@@ -127,7 +127,12 @@ is the `news-bulletin` skill on dev01. Pipeline (`bulletin/run.sh`, systemd **us
    language → Kokoro narration (en `af_heart`, same voice as the owner's audiobooks, locked;
    raj `hf_alpha`). Speech-only respellings live in `bulletin/pronounce.json`; the published
    transcript keeps proper spelling. Prices from key-less APIs; kahavat from the curated
-   `idioms.json`; RAJKOV notices from `events.json`.
+   `idioms.json`; RAJKOV notices from `events.json`. **Music is baked into the MP3** (the file
+   travels alone on WhatsApp): intro sting → voice (loudness-matched to −16 LUFS, the two Kokoro
+   voices differ by ~6 dB) over a looped bed at `BULLETIN_BED_DB` (−25) → outro sting. The assets
+   are tickerlab's (`bulletin/assets/`, **CC BY 4.0** — the credit line under each player and the
+   MP3 ID3 comment are REQUIRED). The dry narration is kept as `out/<date>/<lang>-voice.mp3` so
+   `generate.py --date D --remix` re-mixes without re-running TTS; `publish.py` retires it with the edition.
 2. `publish.py` — writes `www/bulletin/<date>.html`, `www/bulletin.html`, `feed.xml`, a
    1200×630 preview PNG, and syncs `sitemap.xml`; copies MP3s to `www/bulletin/audio/`
    (**gitignored, never committed**) and retires audio older than 28 days (prod keeps ~4

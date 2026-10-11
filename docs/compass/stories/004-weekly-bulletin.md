@@ -77,6 +77,11 @@ YouTube channel upload is the candidate follow-up for playable previews. Fact-ch
 (haiku) + condense pass added after the model called a badminton final "tennis" and overshot
 the length; LLM calls retry on gateway timeouts; sources list links to each article (new tab).
 
+Follow-up 2026-10-11 (owner: "background music is missing"): the generator had no music step.
+Added `mix()` in `generate.py` (intro sting → loudness-matched voice over a looped bed → outro
+sting; tickerlab's CC BY 4.0 assets, credit on the page + in the ID3 comment), kept the dry
+narration for `--remix`, re-mixed the live edition (en 143 s, raj 157 s, both ≈ −17 LUFS).
+
 ## Notes
 
 - Draft run 2026-10-11 (v2, after tone/topic-balance/noticeboard changes): see
