@@ -83,6 +83,12 @@ sting; tickerlab's CC BY 4.0 assets, credit on the page + in the ID3 comment), k
 narration for `--remix`, re-mixed the live edition (en 143 s, raj 157 s, both ≈ −17 LUFS).
 Second pass the same evening: bed raised from −25 dB (owner heard only the stings) to −12 dB (≈ −30 LUFS mono).
 
+Voice switch 2026-10-12 (owner): listening test of the Rajasthani script — Kokoro `hf_alpha`
+vs Chatterbox Multilingual (broke up and grew noisy mid-script on CPU) vs Microsoft Edge voices
+(IndicF5 untested: gated repo, demo Space down). Owner chose Edge Swara for Rajasthani and Edge
+Neerja for English. `generate.py` gained an engine prefix (`edge:`/`kokoro:`), Kokoro fallback
+(verified with a bogus voice), `--renarrate`; both live recordings re-narrated.
+
 ## Notes
 
 - Draft run 2026-10-11 (v2, after tone/topic-balance/noticeboard changes): see

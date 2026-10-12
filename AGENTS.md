@@ -128,9 +128,15 @@ is the `news-bulletin` skill on dev01. Pipeline (`bulletin/run.sh`, systemd **us
 
 1. `generate.py` — RSS headlines (Rajasthan culture/investment/diaspora + an Australia slot
    for Indian-diaspora-relevant news + one Indian filler) → grounded `sonnet` script per
-   language → Kokoro narration (en `af_heart`, same voice as the owner's audiobooks, locked;
-   raj `hf_alpha`). Speech-only respellings live in `bulletin/pronounce.json`; the published
-   transcript keeps proper spelling. Prices from key-less APIs; kahavat from the curated
+   language → narration. **Voices (owner, 2026-10-12, after a listening test):** English
+   `edge:en-IN-NeerjaNeural`, Rajasthani `edge:hi-IN-SwaraNeural` — Microsoft Edge read-aloud
+   neural voices via the unofficial `edge-tts` client (`bulletin/.venv-edge`, free, ~5 s per
+   edition). It is unsupported and may break or throttle; any failure **falls back to Kokoro**
+   (en `af_heart`, raj `hf_alpha`, via the gateway) and `meta.json` records the voice actually
+   used. Speech-only respellings in `bulletin/pronounce.json` are Kokoro-specific (not applied
+   to Edge); the published transcript keeps proper spelling. Edge reads slower than Kokoro
+   (en ≈13 chars/s, raj ≈10): the 2026-10-11 edition runs 2:46 / 2:53 with music.
+   `generate.py --date D --renarrate [--lang L]` re-narrates from `<lang>.txt` and re-mixes. Prices from key-less APIs; kahavat from the curated
    `idioms.json`; RAJKOV notices from `events.json`. **Music is baked into the MP3** (the file
    travels alone on WhatsApp): intro sting → voice (loudness-matched to −16 LUFS, the two Kokoro
    voices differ by ~6 dB) over a looped bed at `BULLETIN_BED_DB` (−12 → bed ≈ −30 LUFS, ≈14 dB under the voice; the mono downmix costs ~4 dB; −25 was inaudible on a phone — owner, 2026-10-11) → outro sting. The assets
