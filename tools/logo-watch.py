@@ -25,7 +25,7 @@ def main():
     update = "--update" in sys.argv
     data = json.loads(SRC.read_text())
     changed = 0
-    for s in data["sponsors"]:
+    for s in data["sponsors"] + data.get("partners", []):   # partner organisations added 2026-10-12
         url = s.get("source_url")
         if not url:
             print(f"  ?  {s['name']}: no official source on record ({s.get('note','')})"); continue

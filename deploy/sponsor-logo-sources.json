@@ -64,5 +64,53 @@
    "sha256": "d4a432d41c2652eb9bc545dc616acb090e1d5f5383d25bcc2d68d354743e4d28",
    "bytes": 75344
   }
+ ],
+ "partners": [
+  {
+   "name": "Rajasthan Association of North America (RANA)",
+   "file": "rajasthan-association-of-north-america-rana-logo.png",
+   "site": "https://www.ranausa.org/",
+   "source_page": "https://www.ranausa.org/",
+   "source_url": "https://www.ranausa.org/wp-content/uploads/2025/08/rana-logo-new.png",
+   "sha256": "48f6623f0ce987450196b12df3a76fa9d432874130265c7eba2ae67058c92b50",
+   "bytes": 59957,
+   "note": "Refreshed 2026-10-12: RANA re-ordered the flag letters in Aug 2025 (India 2nd, USA last); the 2024 MoU mark had them the other way round. ranausa.org (Woodbury NY) is the MoU signatory; rana.org is a different body (Rajasthan Alliance of North America, Bay Area)."
+  },
+  {
+   "name": "Rajasthani Yuva Samiti (RYS)",
+   "file": "rajasthani-yuva-samiti-logo.png",
+   "site": "https://x.com/raj_yuva_samiti",
+   "source_page": null,
+   "source_url": null,
+   "note": "Jodhpur. Logo is the letterhead banner from the 2024 MoU; www.rajasthaniyuvasamiti.com (printed on it) no longer resolves (2026-10-12), X account is the live presence."
+  },
+  {
+   "name": "Rajasthan Charitable Trust UK (RCTUK)",
+   "file": "rajasthan-charitable-trust-uk-logo.png",
+   "site": "https://www.rajasthancharitabletrust.co.uk/",
+   "source_page": "https://www.rajasthancharitabletrust.co.uk/",
+   "source_url": "https://www.rajasthancharitabletrust.co.uk/gallery_gen/120f93f9dff584b886de941f981ce352_666x586_fit.jpg",
+   "note": "Site mark (blue hexagon, camels) matches ours (2026-10-12); ours still carries the WordPress-era red caption.",
+   "sha256": "40880432a74e1915d558ed9159304298c5a42e6d6e0c8a131c3df3d65877b5d5",
+   "bytes": 99241
+  },
+  {
+   "name": "Rajasthan Association France (RAF)",
+   "file": "rajasthan-association-france-raf-logo.png",
+   "site": null,
+   "source_page": null,
+   "source_url": null,
+   "note": "Créteil. No website or social page found 2026-10-12 — logo unlinked; ask the committee for RAF's URL."
+  },
+  {
+   "name": "Rajasthan Association Charitable Trust of New Zealand (RACTNZ)",
+   "file": "rajasthan-association-charitable-trust-new-zealand-ractnz-logo.png",
+   "site": "https://rajasthan.co.nz/",
+   "source_page": "https://rajasthan.co.nz/",
+   "source_url": "https://rajasthan.co.nz/ractnz-small-logo.svg",
+   "note": "Auckland; also facebook.com/profile.php?id=61555767819964, instagram.com/rajasthan.nz, ractnz@gmail.com. Site is a JS app; the favicon SVG is the only directly fetchable mark.",
+   "sha256": "27bd3e7a677885ab7ec7eae43ae229f5f87e55e99edd946785c680224b135c02",
+   "bytes": 112718
+  }
  ]
 }

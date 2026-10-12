@@ -64,24 +64,39 @@
 })();
 
 /* Weekly Rajasthan Bulletin: hand the MP3 to the phone's share sheet as a file (WhatsApp, etc.).
-   Web Share Level 2 needs HTTPS + a user gesture; where files are not shareable we fall back to download. */
+   Web Share Level 2 needs HTTPS + a user gesture; where files are not shareable we fall back to download.
+   iPhone lessons (owner, 2026-10-12 — the sheet got stuck sharing to WhatsApp):
+   - Safari only honours navigator.share() while the tap's user activation is alive. Awaiting a 1 MB fetch
+     first can outlive it, so the MP3 is pre-fetched on first touch/hover/focus and shared straight away.
+   - iOS WhatsApp stalls when a file share also carries `text`; on iOS we send the file + title only. */
 (function () {
   var buttons = document.querySelectorAll("[data-share-audio]");
   if (!buttons.length) return;
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
   buttons.forEach(function (btn) {
+    var url = btn.getAttribute("data-share-audio");
+    var title = btn.getAttribute("data-share-title") || "RAJKOV Bulletin";
+    var text = btn.getAttribute("data-share-text") || "";
+    var name = btn.getAttribute("data-share-name") || url.split("/").pop();   // the shared file's name (owner: rajkov-news-<date>-<language>.mp3)
+    var filePromise = null;
+    function prefetch() {
+      if (!filePromise) {
+        filePromise = fetch(url, { cache: "force-cache" })
+          .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status); return r.blob(); })
+          .then(function (blob) { return new File([blob], name, { type: "audio/mpeg" }); })
+          .catch(function (e) { filePromise = null; throw e; });
+      }
+      return filePromise;
+    }
+    ["pointerdown", "touchstart", "mouseenter", "focus"].forEach(function (ev) { btn.addEventListener(ev, prefetch, { passive: true }); });
     btn.addEventListener("click", async function () {
-      var url = btn.getAttribute("data-share-audio");
-      var title = btn.getAttribute("data-share-title") || "RAJKOV Bulletin";
-      var text = btn.getAttribute("data-share-text") || "";
-      var name = btn.getAttribute("data-share-name") || url.split("/").pop();   // the shared file's name (owner: rajkov-news-<date>-<language>.mp3)
       var label = btn.textContent;
       try {
         btn.disabled = true; btn.textContent = "Preparing…";
-        var res = await fetch(url, { cache: "force-cache" });
-        var blob = await res.blob();
-        var file = new File([blob], name, { type: "audio/mpeg" });
+        var file = await prefetch();
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({ files: [file], title: title, text: text });
+          var data = isIOS ? { files: [file], title: title } : { files: [file], title: title, text: text };
+          await navigator.share(data);
         } else if (navigator.share) {
           await navigator.share({ title: title, text: text, url: location.href });
         } else {
