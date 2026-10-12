@@ -24,3 +24,7 @@ No verified RAJKOV newsletter located in the WordPress export (including its med
 Internal link check passed (381/381 references). No Caddy configuration changes. Full Docker/Caddy gate unavailable on this computer. Not deployed.
 
 Facebook's signed-in page search for "newsletter" returned no results. A Teej search also surfaced older event-photo albums (including 2018), but those have not yet been reviewed for flyers. Search results include other authors; each item needs source verification before inclusion.
+
+## Owner-supplied newsletters
+
+Added the supplied July 2026 edition (19 pages) and The Rangeelo Runner Issue #2 (31 pages) to `/newsletters`, with unchanged PDFs and cover previews. Both use the Roots & Routes cover. No publication month inferred for Issue #2.
