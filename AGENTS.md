@@ -155,9 +155,14 @@ Each edition page has WhatsApp sharing: a `wa.me` link, a "Share audio file" but
 download) and OG/Twitter tags with the per-edition image (<300 KB) and `og:audio`. Gateway key:
 `rajkov` on llm-gw (`sonnet,haiku,kokoro`), in `~/.config/rajkov/llm.env`, never in the repo.
 
-**Sponsor logo watch** (owner, 2026-10-11): `tools/logo-watch.py` re-fetches each official
-logo source in `deploy/sponsor-logo-sources.json` and flags changes; run monthly, then
-re-cut, bump `LOGO_V`, redeploy and tell the owner.
+**Sponsor + partner logo watch** (owner, 2026-10-11): `tools/logo-watch.py` re-fetches each official
+logo source in `deploy/sponsor-logo-sources.json` (`sponsors` and, since 2026-10-12, `partners`)
+and flags changes; run monthly, then re-cut, bump `LOGO_V` / `?v=N`, redeploy and tell the owner.
+Partner logos on `/partnerships` link to each organisation (owner, 2026-10-12): RANA →
+ranausa.org (the MoU signatory in Woodbury NY — rana.org is a different body), RCTUK →
+rajasthancharitabletrust.co.uk, RACTNZ → rajasthan.co.nz, Rajasthani Yuva Samiti → its X account
+(its website is dead). RAF (Créteil) has no findable web presence — unlinked; ask the committee.
+RANA re-ordered its flag letters in Aug 2025; our 2024 MoU crop was stale until the refresh.
 
 ## Lessons learned (keep this list current)
 
@@ -198,6 +203,10 @@ re-cut, bump `LOGO_V`, redeploy and tell the owner.
 - **`publish.py` compares recordings by content, not size.** A re-mix of the same narration
   has the same length and so the same byte size; the old size check skipped the copy and the
   site kept serving the previous mix (found 2026-10-11, the first music re-mix never shipped).
+- **iPhone share sheet: pre-fetch, then share file-only.** Safari honours `navigator.share()`
+  only inside the tap's user activation; awaiting a 1 MB fetch first can outlive it, and iOS
+  WhatsApp stalled when the file share also carried `text`. `main.js` v6 pre-fetches the MP3 on
+  first touch/hover and sends file + title only on iOS (owner's iPhone got stuck, 2026-10-12).
 - **The repo is public** (`rajkov-org/rajkov.org`): never commit credentials,
   member lists, or anything beyond what the website itself publishes.
 - **The logo is a 647×136 banner with three parts** (couple illustration, text, official
