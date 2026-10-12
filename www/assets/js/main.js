@@ -73,7 +73,7 @@
       var url = btn.getAttribute("data-share-audio");
       var title = btn.getAttribute("data-share-title") || "RAJKOV Bulletin";
       var text = btn.getAttribute("data-share-text") || "";
-      var name = url.split("/").pop();
+      var name = btn.getAttribute("data-share-name") || url.split("/").pop();   // the shared file's name (owner: rajkov-news-<date>-<language>.mp3)
       var label = btn.textContent;
       try {
         btn.disabled = true; btn.textContent = "Preparing…";
