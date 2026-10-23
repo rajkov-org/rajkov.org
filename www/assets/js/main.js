@@ -12,7 +12,9 @@
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
     });
     links.addEventListener("click", function (e) {
-      if (e.target.closest("a")) {
+      var a = e.target.closest("a");
+      if (a) {
+        a.blur(); // let a desktop dropdown close after a section jump
         links.classList.remove("open");
         toggle.setAttribute("aria-expanded", "false");
       }
