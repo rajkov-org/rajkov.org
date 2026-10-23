@@ -24,7 +24,7 @@ No build step, no framework. What is in `www/` is exactly what ships.
 www/                      ← deployable site (web root)
   index.html 404.html …   ← pages; clean URLs (/about → about.html) via the origin Caddyfile
                             pages: / about constitution by-laws initiatives business-network
-                                   partnerships membership events contact 404
+                                   partnerships membership events contact newsletters 404
   assets/css/styles.css   ← the single stylesheet; design tokens at the top
   assets/js/main.js       ← progressive enhancement only
   assets/img/             ← logo, hero, partner logos
