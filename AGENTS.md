@@ -154,6 +154,8 @@ Copy rules (2026-10-23 review): never claim a duration (recordings run ~3–4 mi
 minutes"); titles end `| RAJKOV`; the kahavat card shows `roman`/`literal`/`meaning` from
 `idioms.json`; only the first 8 headlines show, the rest sit behind "Show all". The nav item is
 **News** (/bulletin) with Weekly audio bulletin, Past bulletins & podcast, Roots & Routes newsletter.
+Podcast artwork: `assets/img/rajkov-weekly-rajasthan-bulletin-podcast-cover.jpg` (3000×3000, Apple needs
+1400–3000 px). Apple Podcasts / Spotify submission is done by the owner with their own accounts.
 
 Each edition page has WhatsApp sharing: a `wa.me` link, a "Share audio file" button
 (`main.js`, Web Share API with files → phone share sheet → WhatsApp attachment; falls back to
@@ -240,4 +242,5 @@ make ftp-deploy    # upload www/ + .htaccess over FTPS → smoke test https://ra
 ```
 
 Never trust `caddy reload` exit 0 — `deploy/verify.sh` asks the live URL.
-Commit after every deploy, tag it, add a row to `deploy/DEPLOYED.md`.
+Commit after every deploy, tag it, add a row to `deploy/DEPLOYED.md`, and **push to GitHub with tags**
+(`git push origin main --tags`) after every production deploy (owner, 2026-10-23).
