@@ -201,11 +201,12 @@ strong { font-weight: 700; }
     min-width: 210px; padding: .4rem;
     background: var(--card); border: 1px solid var(--line); border-radius: var(--radius-sm); box-shadow: var(--shadow);
     opacity: 0; visibility: hidden; transform: translateY(4px);
-    transition: opacity .15s ease, transform .15s ease, visibility .15s;
   }
   /* items near the right edge open leftwards so hidden menus never widen the page */
   .nav-links > li:nth-last-child(-n+3) > .sub-menu { left: auto; right: 0; }
-  .has-sub:hover > .sub-menu, .has-sub:focus-within > .sub-menu { opacity: 1; visibility: visible; transform: none; }
+  /* fade in on open only: closing is instant, so crossing the mobile breakpoint
+     (tablet rotation, window resize) cannot flash every menu as it fades out */
+  .has-sub:hover > .sub-menu, .has-sub:focus-within > .sub-menu { opacity: 1; visibility: visible; transform: none; transition: opacity .15s ease, transform .15s ease; }
   .sub-menu a { display: block; }
 }
 @media (min-width: 1161px) and (prefers-reduced-motion: reduce) { .sub-menu { transition: none; } }
