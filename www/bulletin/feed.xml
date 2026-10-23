@@ -5,10 +5,14 @@
   <link>https://rajkov.org/bulletin</link>
   <atom:link href="https://rajkov.org/bulletin/feed.xml" rel="self" type="application/rss+xml"/>
   <language>en-au</language>
-  <description>Two minutes of Rajasthan every Sunday 5 pm Melbourne — culture, investment, the diaspora, gold and silver, and a kahavat of the week — in English and Rajasthani. From Rajasthani Kutumb of Victoria.</description>
+  <description>A few minutes of Rajasthan every Sunday 5 pm Melbourne — culture, investment, the diaspora, gold and silver, and a kahavat of the week — in English and Rajasthani. From Rajasthani Kutumb of Victoria.</description>
   <itunes:author>Rajasthani Kutumb of Victoria Inc.</itunes:author>
   <itunes:image href="https://rajkov.org/assets/img/rajkov-icon-512.png"/>
   <itunes:explicit>false</itunes:explicit>
+  <itunes:type>episodic</itunes:type>
+  <itunes:category text="Society &amp; Culture"><itunes:category text="Places &amp; Travel"/></itunes:category>
+  <itunes:category text="News"/>
+  <itunes:owner><itunes:name>Rajasthani Kutumb of Victoria Inc.</itunes:name><itunes:email>secretary@rajkov.org</itunes:email></itunes:owner>
   <item>
     <title>Weekly Rajasthan Bulletin — 18 October 2026 (Rajasthani)</title>
     <link>https://rajkov.org/bulletin/2026-10-18</link>

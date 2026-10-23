@@ -140,8 +140,8 @@ is the `news-bulletin` skill on dev01. Pipeline (`bulletin/run.sh`, systemd **us
    `idioms.json`; RAJKOV notices from `events.json`. **Music is baked into the MP3** (the file
    travels alone on WhatsApp): intro sting → voice (loudness-matched to −16 LUFS, the two Kokoro
    voices differ by ~6 dB) over a looped bed at `BULLETIN_BED_DB` (−12 → bed ≈ −30 LUFS, ≈14 dB under the voice; the mono downmix costs ~4 dB; −25 was inaudible on a phone — owner, 2026-10-11) → outro sting. The assets
-   are tickerlab's (`bulletin/assets/`, **CC BY 4.0** — the credit line under each player and the
-   MP3 ID3 comment are REQUIRED). The dry narration is kept as `out/<date>/<lang>-voice.mp3` so
+   are tickerlab's (`bulletin/assets/`, **CC BY 4.0** — the credit line under the players (one line,
+   "Music in both recordings", since 2026-10-23) and the MP3 ID3 comment are REQUIRED). The dry narration is kept as `out/<date>/<lang>-voice.mp3` so
    `generate.py --date D --remix` re-mixes without re-running TTS; `publish.py` retires it with the edition.
 2. `publish.py` — writes `www/bulletin/<date>.html`, `www/bulletin.html`, `feed.xml`, a
    1200×630 preview PNG, and syncs `sitemap.xml`; copies MP3s to `www/bulletin/audio/`
@@ -149,6 +149,11 @@ is the `news-bulletin` skill on dev01. Pipeline (`bulletin/run.sh`, systemd **us
    weeks; `make ftp-prune` removes it there; the page then shows transcript only). Header and
    footer are lifted from `www/contact.html` so `make check` stays green.
 3. `make check` → commit text/feed/image → `make edge-deploy` → `make ftp-deploy` → `make ftp-prune`.
+
+Copy rules (2026-10-23 review): never claim a duration (recordings run ~3–4 min — say "a few
+minutes"); titles end `| RAJKOV`; the kahavat card shows `roman`/`literal`/`meaning` from
+`idioms.json`; only the first 8 headlines show, the rest sit behind "Show all". The nav item is
+**News** (/bulletin) with Weekly audio bulletin, Past bulletins & podcast, Roots & Routes newsletter.
 
 Each edition page has WhatsApp sharing: a `wa.me` link, a "Share audio file" button
 (`main.js`, Web Share API with files → phone share sheet → WhatsApp attachment; falls back to
