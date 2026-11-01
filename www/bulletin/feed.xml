@@ -15,6 +15,26 @@
   <itunes:category text="News"/>
   <itunes:owner><itunes:name>Rajasthani Kutumb of Victoria Inc.</itunes:name><itunes:email>secretary@rajkov.org</itunes:email></itunes:owner>
   <item>
+    <title>Weekly Rajasthan Bulletin — 1 November 2026 (Rajasthani)</title>
+    <link>https://rajkov.org/bulletin/2026-11-01</link>
+    <guid isPermaLink="false">rajkov-bulletin-2026-11-01-raj</guid>
+    <pubDate>Sun, 01 Nov 2026 17:00:00 +1100</pubDate>
+    <description>खम्मा घणी सा। राम राम सा। RAJKOV रो साप्ताहिक राजस्थान बुलेटिन में थांनै घणो-घणो स्वागत। आज छै रविवार, एक नवम्बर दो हजार छब्बीस।
+
+काल शनिवार नै, मेलबर्न रे Federation Square पर Celebrate India रे दिवाली महोत्सव में RAJKOV नै धूम मचाई। म्हारा कलाकारां नै राजस्थानी युगल नृत्य पेश कियो अर साफो बाँधण री वर्कशॉप करी — लोगां नै घणो आछो लाग्यो। हर कलाकार नै, हर वोलेन्टियर नै RAJKOV कुटुम्ब री तरफ सूं घणो…</description>
+    <enclosure url="https://rajkov.org/bulletin/audio/2026-11-01-raj.mp3" length="1407067" type="audio/mpeg"/>
+    <itunes:duration>176</itunes:duration>
+  </item>
+  <item>
+    <title>Weekly Rajasthan Bulletin — 1 November 2026 (English)</title>
+    <link>https://rajkov.org/bulletin/2026-11-01</link>
+    <guid isPermaLink="false">rajkov-bulletin-2026-11-01-en</guid>
+    <pubDate>Sun, 01 Nov 2026 17:00:00 +1100</pubDate>
+    <description>Khamma Ghani! Ram Ram sa! Welcome to the Weekly Rajasthan Bulletin from RAJKOV — Sunday, first of November, twenty twenty-six. What a Diwali weekend for our kutumb! Yesterday at Federation Square, RAJKOV presented a traditional Rajasthani couple dance and a safa tying workshop — the crowd loved every moment. Heartfelt thanks to every volunteer and performer. And today, the RAJKOV Youth Band perfor…</description>
+    <enclosure url="https://rajkov.org/bulletin/audio/2026-11-01-en.mp3" length="1312981" type="audio/mpeg"/>
+    <itunes:duration>164</itunes:duration>
+  </item>
+  <item>
     <title>Weekly Rajasthan Bulletin — 25 October 2026 (Rajasthani)</title>
     <link>https://rajkov.org/bulletin/2026-10-25</link>
     <guid isPermaLink="false">rajkov-bulletin-2026-10-25-raj</guid>
