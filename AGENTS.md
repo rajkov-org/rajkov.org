@@ -123,8 +123,11 @@ A ~2-minute spoken bulletin every **Sunday 17:00 Australia/Melbourne**, in Engli
 Rajasthani (Marwari, Devanagari), opening with *Khamma Ghani* and *Ram Ram sa* and closing
 with the credit "brought to you by Surya ji with his AI skills for RAJKOV". The generator is
 **local only** — `bulletin/` on dev01 is gitignored by owner decision (2026-10-11); the method
-is the `news-bulletin` skill on dev01. Pipeline (`bulletin/run.sh`, systemd **user** timer
-`rajkov-bulletin.timer` on dev01, 16:35 so the edition is live by 17:00):
+is the `news-bulletin` skill on dev01. **Unattended since 2026-11-10** (owner: "automate all
+this from next Sunday onwards"; before that every edition was a manual draft → owner review →
+publish, and the 8 Nov edition was simply missed). Pipeline (`bulletin/run.sh`, systemd **user**
+timer `rajkov-bulletin.timer` on dev01, **enabled**, 15:45 because the scripts have taken up to
+an hour through the gateway; `TimeoutStartSec=6000`):
 
 1. `generate.py` — RSS headlines (Rajasthan culture/investment/diaspora + an Australia slot
    for Indian-diaspora-relevant news + one Indian filler) → grounded `sonnet` script per
@@ -148,7 +151,28 @@ is the `news-bulletin` skill on dev01. Pipeline (`bulletin/run.sh`, systemd **us
    (**gitignored, never committed**) and retires audio older than 28 days (prod keeps ~4
    weeks; `make ftp-prune` removes it there; the page then shows transcript only). Header and
    footer are lifted from `www/contact.html` so `make check` stays green.
-3. `make check` → commit text/feed/image → `make edge-deploy` → `make ftp-deploy` → `make ftp-prune`.
+3. `make check` → commit text/feed/image → `make edge-deploy` → `make ftp-deploy` → `make ftp-prune`
+   → live check of the edition page + both MP3s → tag `prod-<date>` → row in `deploy/DEPLOYED.md`
+   → `git push origin main --tags`.
+
+What replaces the owner's review in an unattended run (all in `generate.py` / `run.sh`):
+- **Preflight hold.** `run.sh` exits 3 before generating anything if the checkout is not a clean
+  `main`, `origin/main` has commits dev01 lacks, or `www/` differs from the last `prod-*` tag —
+  `ftp-deploy` uploads all of `www/`, so the bulletin must never carry unreleased site changes to
+  production. After sorting it out: `BULLETIN_FORCE=1 bulletin/run.sh [date]`.
+- **No repeats.** Headlines the previous edition was already offered are dropped, and the writer
+  is shown the previous English script with "do not retell".
+- **Kahavat.** The first saying in `idioms.json` no edition has used yet (then the one used longest
+  ago); the writer adds its own kind, funny everyday picture. Keep the list topped up and vetted.
+- **Guards.** Fewer than 8 fresh headlines, or a script without its greeting/sign-off/body, stops
+  the run (unit red, nothing deployed). A condense pass that guts a script (< 85 % of the cap) is
+  rejected. Fact-check problems that survive the rewrite are published but recorded in
+  `out/<date>/meta.json` `flags` and counted in the DEPLOYED row — read them on Monday.
+- **Owner's own stories / a hand-picked kahavat** still go in `bulletin/out/<Sunday>/editor.json`
+  (`items`, `exclude`, `idiom`) any time before 15:45 on the day; RAJKOV events in `events.json`.
+- **Result.** Last line of `bulletin/out/run-<date>.log` is `=== RESULT ok|FAILED`. There is no
+  push channel from systemd to the owner yet: a failed Sunday is only visible there, in
+  `systemctl --user status rajkov-bulletin.service`, or as a missing edition on the site.
 
 Copy rules (2026-10-23 review): never claim a duration (recordings run ~3–4 min — say "a few
 minutes"); titles end `| RAJKOV`; the kahavat card shows `roman`/`literal`/`meaning` from

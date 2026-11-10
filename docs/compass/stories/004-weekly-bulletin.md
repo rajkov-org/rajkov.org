@@ -1,7 +1,9 @@
 # Story 004 — weekly-bulletin (RAJKOV Weekly Rajasthan Bulletin, English + Rajasthani)
 
-**Status:** in-progress — first edition LIVE on https://rajkov.org/bulletin 2026-10-11 (owner
-instructed unattended production deploy); Sunday timer written, NOT enabled pending committee.
+**Status:** in-progress — LIVE weekly on https://rajkov.org/bulletin since 2026-10-11 (five
+editions, each drafted and reviewed by hand). **Timer enabled 2026-11-10** on the owner's
+instruction ("automate all this from next Sunday onwards"); first unattended run Sunday
+2026-11-15 — not yet observed.
 **Depends on:** 001 (site live), 003 (production on the shared host via FTPS).
 
 ## Goal
@@ -63,13 +65,19 @@ link-preview metadata (og:title/description, an og:image per edition at 1200×63
       retired after 28 days (`make ftp-prune` removes it on prod) — evidence 2026-10-11: dry run
       against the v2 archive, then the real edition; `make check` 459/459; prod URLs 200 and
       301s verified (DEPLOYED.md `prod-2026-10-11c`). Retention proof pending week 5.
-- [ ] Timer on dev01 fires Sunday 17:00 Australia/Melbourne (`systemctl --user list-timers`),
-      run time < 30 min, non-zero exit + owner email on a failed run (nothing published).
+- [ ] Timer on dev01 fires Sunday (`systemctl --user list-timers`), edition live by 17:00
+      Australia/Melbourne, non-zero exit + owner told on a failed run (nothing published).
+      2026-11-10: timer enabled, start moved to 15:45 and timeout to 100 min (the 9 Nov draft
+      took 57 min before narration); next elapse `Sun 2026-11-15 04:45:00 UTC`. Preflight,
+      `git push --dry-run`, `make check`, edge SSH and the FTP login all pass inside
+      `systemd-run --user`. Still open: the first real unattended run, and a channel that
+      tells the owner about a failure (today: unit status + `out/run-<date>.log` only).
 - [x] Live page passes `make check`; OG/Twitter tags, BreadcrumbList + PodcastEpisode JSON-LD
       and feed.xml validated by script 2026-10-11. [ ] Owner to confirm player + "Share audio
       file" on iPhone Safari and Android Chrome.
-- [ ] Rotation proof: after the 5th week the first week's mp3 is gone from prod, its
-      transcript page still serves.
+- [x] Rotation proof: after the 5th week the first week's mp3 is gone from prod, its
+      transcript page still serves — 2026-11-10: `publish.py` retired the 2026-10-11 audio,
+      `make ftp-prune` deleted both files, `/bulletin/audio/2026-10-11-en.mp3` → 404.
 
 Decisions during the build (2026-10-11): WhatsApp link button removed (WhatsApp shows only a
 static card for non-YouTube domains); audio attachment via Web Share is the share path; a
