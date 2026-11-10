@@ -15,6 +15,32 @@
   <itunes:category text="News"/>
   <itunes:owner><itunes:name>Rajasthani Kutumb of Victoria Inc.</itunes:name><itunes:email>secretary@rajkov.org</itunes:email></itunes:owner>
   <item>
+    <title>Weekly Rajasthan Bulletin — 10 November 2026 (Rajasthani)</title>
+    <link>https://rajkov.org/bulletin/2026-11-10</link>
+    <guid isPermaLink="false">rajkov-bulletin-2026-11-10-raj</guid>
+    <pubDate>Tue, 10 Nov 2026 17:00:00 +1100</pubDate>
+    <description>खम्मा घणी सा। राम राम सा। RAJKOV रो साप्ताहिक राजस्थान बुलेटिन में थांनै घणो-घणो स्वागत। आज छै मंगळवार, दस नवम्बर दो हजार छब्बीस।
+
+दीपावली का राम राम सा। रविवार नै आपां सगळां लक्ष्मी पूजा करी अर दिवला जगाया। RAJKOV कुटुम्ब रे हर परिवार नै दीपावली री घणी-घणी शुभकामनावां। थांरै घर में उजाळो, सेहत, मिठास अर बरकत सदा बणी रैवै।
+
+अबै खबरां। हल्दीघाटी में दुनिया री सबसूं बड़ी महाराणा प्रताप री मूरत बणैला…</description>
+    <enclosure url="https://rajkov.org/bulletin/audio/2026-11-10-raj.mp3" length="1547037" type="audio/mpeg"/>
+    <itunes:duration>193</itunes:duration>
+  </item>
+  <item>
+    <title>Weekly Rajasthan Bulletin — 10 November 2026 (English)</title>
+    <link>https://rajkov.org/bulletin/2026-11-10</link>
+    <guid isPermaLink="false">rajkov-bulletin-2026-11-10-en</guid>
+    <pubDate>Tue, 10 Nov 2026 17:00:00 +1100</pubDate>
+    <description>Khamma Ghani. Ram Ram sa. This is the Weekly Rajasthan Bulletin from RAJKOV, Tuesday the tenth of November, twenty twenty-six.
+
+Happy Deepawali! Lakshmi Puja was on Sunday, and the diyas are still glowing. To every family in the RAJKOV kutumb, here in Melbourne and back home in Rajasthan, may this Deepawali bring light, good health, happiness and prosperity.
+
+Now, the news. NBCC has won the projec…</description>
+    <enclosure url="https://rajkov.org/bulletin/audio/2026-11-10-en.mp3" length="1473687" type="audio/mpeg"/>
+    <itunes:duration>184</itunes:duration>
+  </item>
+  <item>
     <title>Weekly Rajasthan Bulletin — 1 November 2026 (Rajasthani)</title>
     <link>https://rajkov.org/bulletin/2026-11-01</link>
     <guid isPermaLink="false">rajkov-bulletin-2026-11-01-raj</guid>
@@ -79,28 +105,6 @@ Next Saturday the thirty-first, RAJKOV takes the stage at the Victorian Festival
 First, a warm manuhaar from your own Kutumb. The RAJKOV Diwali Celebration is next Saturday, the twenty-fourth of October, from three thirty to six pm, at Wyndhamvale Community Centre, fifty-five Kookaburra Avenue, Werribee. There will be kids&#x27; entrepreneur stalls,…</description>
     <enclosure url="https://rajkov.org/bulletin/audio/2026-10-18-en.mp3" length="1922003" type="audio/mpeg"/>
     <itunes:duration>240</itunes:duration>
-  </item>
-  <item>
-    <title>Weekly Rajasthan Bulletin — 11 October 2026 (Rajasthani)</title>
-    <link>https://rajkov.org/bulletin/2026-10-11</link>
-    <guid isPermaLink="false">rajkov-bulletin-2026-10-11-raj</guid>
-    <pubDate>Sun, 11 Oct 2026 17:00:00 +1100</pubDate>
-    <description>खम्मा घणी सा। राम राम सा। RAJKOV री साप्ताहिक राजस्थान बुलेटिन में आपरो स्वागत है। आज रविवार, ग्यारह अक्टूबर दो हजार छब्बीस।
-
-संस्कृति री बात। गोडावण पंछी अब एक अनूठी stop-motion film रो नायक बण्यो है। एक-एक सिरेमिक टुकड़ो हाथसूं बणाय&#x27;र यो फिल्म गोडावण री संरक्षण कहाणी जीवंत करै। दो captive-bred गोडावण राजस्थान रे जंगल में छोड्या गया — खुशखबरी। HPCL नैं अपणो ब्रांड राजस्थानी रंग सूं सजायो। IHCL नै…</description>
-    <enclosure url="https://rajkov.org/bulletin/audio/2026-10-11-raj.mp3" length="1386329" type="audio/mpeg"/>
-    <itunes:duration>173</itunes:duration>
-  </item>
-  <item>
-    <title>Weekly Rajasthan Bulletin — 11 October 2026 (English)</title>
-    <link>https://rajkov.org/bulletin/2026-10-11</link>
-    <guid isPermaLink="false">rajkov-bulletin-2026-10-11-en</guid>
-    <pubDate>Sun, 11 Oct 2026 17:00:00 +1100</pubDate>
-    <description>Khamma Ghani! Ram Ram sa. Welcome to the Weekly Rajasthan Bulletin from RAJKOV, for Sunday the eleventh of October 2026.
-
-Culture first. A stop-motion film called Godawan has been turning heads this week — made entirely from handmade ceramic pieces, it brings the Great Indian Bustard&#x27;s conservation story to life. And in perfect sync, two captive-bred Bustards were released into the wild in Rajasth…</description>
-    <enclosure url="https://rajkov.org/bulletin/audio/2026-10-11-en.mp3" length="1327763" type="audio/mpeg"/>
-    <itunes:duration>166</itunes:duration>
   </item>
 </channel>
 </rss>
