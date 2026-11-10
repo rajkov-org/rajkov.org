@@ -165,9 +165,16 @@ What replaces the owner's review in an unattended run (all in `generate.py` / `r
 - **Kahavat.** The first saying in `idioms.json` no edition has used yet (then the one used longest
   ago); the writer adds its own kind, funny everyday picture. Keep the list topped up and vetted.
 - **Guards.** Fewer than 8 fresh headlines, or a script without its greeting/sign-off/body, stops
-  the run (unit red, nothing deployed). A condense pass that guts a script (< 85 % of the cap) is
-  rejected. Fact-check problems that survive the rewrite are published but recorded in
-  `out/<date>/meta.json` `flags` and counted in the DEPLOYED row — read them on Monday.
+  the run (unit red, nothing deployed). An over-long script is condensed by dropping whole
+  stories; a result under 85 % of the cap is refused and the fuller script stays. Fact-check
+  problems that survive the rewrite are published but recorded in `out/<date>/meta.json` `flags`
+  and counted in the DEPLOYED row — read them on Monday (a flag marked "quote is NOT in the final
+  script" is usually the checker misreading a number word). The Rajasthani credit name is
+  normalised to सूर्या जी. Dry run 2026-11-10 (generate only, inside `systemd-run --user`): 27 min,
+  both scripts fact-check clean, en 153 s / raj 165 s; the LLM call allows 1500 s per attempt
+  because a 900 s limit threw away Rajasthani drafts that needed ~770 s.
+- **Kahavat list rules.** No sayings with a religious, cleric or community reference (owner,
+  2026-11-10); new ones come from a published list, not from the model's memory.
 - **Owner's own stories / a hand-picked kahavat** still go in `bulletin/out/<Sunday>/editor.json`
   (`items`, `exclude`, `idiom`) any time before 15:45 on the day; RAJKOV events in `events.json`.
 - **Result.** Last line of `bulletin/out/run-<date>.log` is `=== RESULT ok|FAILED`. There is no

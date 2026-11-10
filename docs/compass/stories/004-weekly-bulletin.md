@@ -70,7 +70,10 @@ link-preview metadata (og:title/description, an og:image per edition at 1200×63
       2026-11-10: timer enabled, start moved to 15:45 and timeout to 100 min (the 9 Nov draft
       took 57 min before narration); next elapse `Sun 2026-11-15 04:45:00 UTC`. Preflight,
       `git push --dry-run`, `make check`, edge SSH and the FTP login all pass inside
-      `systemd-run --user`. Still open: the first real unattended run, and a channel that
+      `systemd-run --user`. Dry run of the generate step for 2026-11-15 in the same environment
+      (output to scratch, nothing published): 45 fresh headlines, 0 repeated from 10 Nov, 27 min,
+      both scripts fact-check clean, en 153 s / raj 165 s. The deploy commands themselves have
+      not been run from the timer. Still open: the first real unattended run, and a channel that
       tells the owner about a failure (today: unit status + `out/run-<date>.log` only).
 - [x] Live page passes `make check`; OG/Twitter tags, BreadcrumbList + PodcastEpisode JSON-LD
       and feed.xml validated by script 2026-10-11. [ ] Owner to confirm player + "Share audio
