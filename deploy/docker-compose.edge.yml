@@ -10,7 +10,7 @@ name: rajkov
 
 services:
   web:
-    image: caddy:2.11.7-alpine   # pinned (was caddy:2-alpine)
+    image: caddy:2.11-alpine   # minor pinned, patches via the weekly image-refresh
     container_name: rajkov-web
     restart: unless-stopped
     mem_limit: 64m
