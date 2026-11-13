@@ -35,10 +35,12 @@ check: validate  ## Local gate: config validates + every internal link/asset in 
 edge-push: check  ## Ship www/ + config to prd01 (runs the gate first)
 	ssh $(EDGE_HOST) 'sudo mkdir -p $(EDGE_DIR) && sudo chown $$(id -u):$$(id -g) $(EDGE_DIR)'
 	rsync -az --delete --itemize-changes www/ $(EDGE_HOST):$(EDGE_DIR)/www/
-	rsync -az --inplace deploy/Caddyfile deploy/docker-compose.edge.yml $(EDGE_HOST):$(EDGE_DIR)/
+	rsync -az --inplace deploy/Caddyfile $(EDGE_HOST):$(EDGE_DIR)/
+	@# prd01 standard: every app runs from /opt/<app>/docker-compose.yml (project name is in the file)
+	rsync -az --inplace deploy/docker-compose.edge.yml $(EDGE_HOST):$(EDGE_DIR)/docker-compose.yml
 
 edge-up:  ## Create / refresh the origin container on prd01 (validate, then hot-reload)
-	ssh $(EDGE_HOST) 'cd $(EDGE_DIR) && docker compose -f docker-compose.edge.yml up -d && \
+	ssh $(EDGE_HOST) 'cd $(EDGE_DIR) && docker compose up -d && \
 	  docker exec rajkov-web caddy validate --config /etc/caddy/Caddyfile && \
 	  docker exec rajkov-web caddy reload --config /etc/caddy/Caddyfile || true'
 
