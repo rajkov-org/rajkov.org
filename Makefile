@@ -47,7 +47,7 @@ edge-up:  ## Create / refresh the origin container on prd01 (validate, then hot-
 edge-route:  ## Ship the edge route fragment and reload the shared edge (atomic)
 	rsync -az deploy/caddy/rajkov.caddy $(EDGE_HOST):/tmp/rajkov.caddy
 	ssh $(EDGE_HOST) 'sudo cp /tmp/rajkov.caddy /opt/edge/conf.d/rajkov.caddy && \
-	  cd /opt/edge && sudo docker compose exec -T caddy caddy reload --config /etc/caddy/Caddyfile'
+	  cd /opt/edge && docker compose exec -T caddy caddy reload --config /etc/caddy/Caddyfile'
 
 edge-verify:  ## Smoke-test the live URL (never trust exit 0)
 	@bash deploy/verify.sh $(EDGE_URL)
