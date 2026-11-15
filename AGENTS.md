@@ -177,9 +177,15 @@ What replaces the owner's review in an unattended run (all in `generate.py` / `r
   2026-11-10); new ones come from a published list, not from the model's memory.
 - **Owner's own stories / a hand-picked kahavat** still go in `bulletin/out/<Sunday>/editor.json`
   (`items`, `exclude`, `idiom`) any time before 15:45 on the day; RAJKOV events in `events.json`.
-- **Result.** Last line of `bulletin/out/run-<date>.log` is `=== RESULT ok|FAILED`. There is no
-  push channel from systemd to the owner yet: a failed Sunday is only visible there, in
-  `systemctl --user status rajkov-bulletin.service`, or as a missing edition on the site.
+- **Result + alerting.** Last line of `bulletin/out/run-<date>.log` is `=== RESULT ok|FAILED`.
+  Since 2026-11-15 `run.sh` pings the healthchecks.io check **`rajkov-bulletin`** (monitoring repo
+  `healthchecks/healthchecks.yml`; cron `45 15 * * 0` Melbourne, 2 h grace): `/start`, success, or
+  `/<exit code>` with the last 25 log lines. The owner is emailed on a failure, or when no success
+  arrives by ~17:45 (dev01 down, timer off, run hung). Ping URL is read from
+  `~/.config/healthchecks/ping-urls.json`; a missing file only skips the pings.
+- **Resume a run whose audio is already made:** `BULLETIN_FORCE=1 BULLETIN_SKIP_GENERATE=1
+  bulletin/run.sh <date>` — skips `generate.py` (~25 min of LLM + TTS) and starts at publish. Run
+  it inside `systemd-run --user` so it survives the session.
 
 Copy rules (2026-10-23 review): never claim a duration (recordings run ~3–4 min — say "a few
 minutes"); titles end `| RAJKOV`; the kahavat card shows `roman`/`literal`/`meaning` from
@@ -259,6 +265,12 @@ RANA re-ordered its flag letters in Aug 2025; our 2024 MoU crop was stale until 
   terminal forever. **Python 3.13+ rejects the edge local CA** unless
   `verify_flags &= ~ssl.VERIFY_X509_STRICT` (verification stays on). Both found building
   the bulletin generator.
+- **Never pin a Playwright browser build path** (2026-11-15). `publish.py` hard-coded
+  `chromium-1234`; a Playwright upgrade in another project (censusai-web) ran `playwright install`,
+  which deletes builds no installed Playwright references, and the first unattended Sunday failed
+  at the preview image after the audio was made. `publish.py` now picks the newest
+  `~/.cache/ms-playwright/chromium-*`. The edition went out ~8 h late via the resume switch; the
+  failure was only found because the owner asked — hence the healthchecks.io check above.
 
 ## Gate + deploy
 

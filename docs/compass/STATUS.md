@@ -8,7 +8,7 @@
 003 — Production cut-over on the shared host via FTPS: **https://rajkov.org live 2026-10-11** (stories/003, deploy/DEPLOYED.md)
 
 ## Now
-- 004 — Weekly Rajasthan Bulletin (en + Rajasthani, Sunday 17:00 Melbourne): voices + pronunciation approved by owner; LIVE weekly since 2026-10-11; **unattended from Sunday 2026-11-15** (owner 2026-11-10; timer enabled, 15:45 start) — first automated run still to be confirmed (stories/004)
+- 004 — Weekly Rajasthan Bulletin (en + Rajasthani, Sunday 17:00 Melbourne): voices + pronunciation approved by owner; LIVE weekly since 2026-10-11; **unattended since 2026-11-15** (timer 15:45). First run failed at the preview image (pinned Chromium build deleted), resumed and published ~8 h late; fixed + healthchecks.io `rajkov-bulletin` now emails on failure/silence (stories/004)
 - Logo: header split into couple mark + live text + Vijay Stambh — DONE 2026-10-11 (owner go-ahead; styles v8); footer/by-laws keep the banner
 - Sponsor logo watch: `tools/logo-watch.py` + monthly user timer on dev01 (owner's standing instruction 2026-10-11)
 
