@@ -212,6 +212,7 @@ RANA re-ordered its flag letters in Aug 2025; our 2024 MoU crop was stale until 
 
 ## Lessons learned (keep this list current)
 
+- **2026-11-16 — the bulletin generator now has its own private repo.** `bulletin/` stays gitignored here (this repo is public), but it is now a nested git repo with a private GitHub remote (the owner's `rajkov-bulletin`). Before this it was in no backup: the nightly code backup skips ignored files. Commit generator changes inside `bulletin/` and push them there. `run.sh` runs its git commands from the repo root, so the nested repo doesn't affect the weekly run. Restore: clone it into `bulletin/` and recreate `.venv-edge`.
 - **2026-11-16 — GitHub Actions CI added (`.github/workflows/ci.yml` → `make ci`).** Runs on
   push to main, PRs and manual dispatch, `ubuntu-latest`, no secrets, `contents: read`. Checks:
   both Caddy configs validate (caddy:2-alpine via docker), every internal link/asset resolves,
