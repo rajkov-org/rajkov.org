@@ -1,7 +1,7 @@
 # rajkov.org — hand-built static site. `make help` lists targets.
 # Deploys to prd01 behind the shared `edge` Caddy; see AGENTS.md + deploy/.
 .DEFAULT_GOAL := help
-.PHONY: help dev check validate edge-push edge-up edge-route edge-verify edge-deploy ftp-list ftp-backup ftp-retire ftp-archive ftp-upload ftp-prune ftp-verify ftp-deploy
+.PHONY: help dev check validate seo ci edge-push edge-up edge-route edge-verify edge-deploy ftp-list ftp-backup ftp-retire ftp-archive ftp-upload ftp-prune ftp-verify ftp-deploy
 
 EDGE_HOST ?= prd01
 EDGE_DIR  ?= /opt/rajkov.org
@@ -27,6 +27,16 @@ validate:  ## Validate the origin Caddyfile + the edge fragment in a throwaway c
 
 check: validate  ## Local gate: config validates + every internal link/asset in www/ resolves
 	@python3 scripts/check-links.py www
+
+seo:  ## Every page has <title> + meta description; sitemap/robots/feed/manifest parse (conventions drift = warnings)
+	@python3 scripts/check-seo.py www
+
+# What GitHub Actions runs (.github/workflows/ci.yml). No credentials, no network
+# beyond the caddy image pull. Bulletin MP3s are gitignored, so missing ones are skipped.
+ci: validate seo  ## CI gate: configs validate, links resolve (minus gitignored audio), SEO, Python/shell syntax
+	@python3 scripts/check-links.py www --ignore-missing bulletin/audio/
+	@PYTHONDONTWRITEBYTECODE=1 python3 -c 'import ast,sys; [ast.parse(open(f).read(), f) for f in sys.argv[1:]]; print("  python syntax ok:", *sys.argv[1:])' scripts/*.py tools/*.py deploy/ftp/*.py
+	@bash -n deploy/verify.sh && echo "  shell syntax ok: deploy/verify.sh"
 
 # --inplace is load-bearing: the Caddyfile is bind-mounted as a single file, so
 # the mount is pinned to its inode. A temp-file-and-rename rsync creates a new

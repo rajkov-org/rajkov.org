@@ -31,7 +31,9 @@ www/                      ← deployable site (web root)
   downloads/              ← PDFs (MoUs, directory, constitution if offered as PDF)
   robots.txt sitemap.xml site.webmanifest favicon.ico
 deploy/                   ← Caddyfile (origin), docker-compose.edge.yml, caddy/rajkov.caddy (edge route), verify.sh, DEPLOYED.md
-scripts/check-links.py    ← part of `make check`
+scripts/check-links.py    ← part of `make check` (+ `make ci`)
+scripts/check-seo.py      ← `make seo`: title/description per page, sitemap/robots/feed/manifest (stdlib)
+.github/workflows/ci.yml  ← GitHub Actions: runs `make ci` on push to main, PRs, manual dispatch
 source/wordpress/         ← the scraped WordPress export (read-only reference, never served)
 docs/                     ← compass/ (stories, STATUS.md), security-sweep.md
 Makefile  README.md  AGENTS.md  CLAUDE.md  requirements.md
@@ -210,6 +212,21 @@ RANA re-ordered its flag letters in Aug 2025; our 2024 MoU crop was stale until 
 
 ## Lessons learned (keep this list current)
 
+- **2026-11-16 — GitHub Actions CI added (`.github/workflows/ci.yml` → `make ci`).** Runs on
+  push to main, PRs and manual dispatch, `ubuntu-latest`, no secrets, `contents: read`. Checks:
+  both Caddy configs validate (caddy:2-alpine via docker), every internal link/asset resolves,
+  every page has `<title>` + meta description, sitemap/robots/feed.xml/site.webmanifest parse
+  and every sitemap `<loc>` maps to a file, and Python/shell syntax of the repo's scripts.
+  **Warning tier:** AGENTS.md SEO-convention drift (title > 60, description outside 120–160,
+  not one `<h1>`, no canonical, indexable page missing from the sitemap) prints `::warning::`
+  and never fails; currently one pre-existing warning (`404.html` description 56 chars, a noindex
+  page). `--strict` turns warnings into failures. **Bulletin MP3s are gitignored**, so the CI
+  link check passes `--ignore-missing bulletin/audio/` (24 refs skipped in a clean clone);
+  `make check` on dev01 still checks them. `bulletin/` is local-only, so CI has no pipeline
+  tests to run and must never call the gateway, TTS, RSS or FTPS (public repo). `make check`
+  itself was left unchanged so the unattended bulletin run's gate did not move. Our GitHub
+  account is a non-admin collaborator: Actions settings can't be read or changed from here.
+
 - **`curl | grep -q` under `pipefail` lies.** grep exits on the first match,
   curl gets SIGPIPE and the pipeline fails. `deploy/verify.sh` buffers the body
   first (`body=$(curl …); grep … <<<"$body"`). Found on the first staging deploy.
@@ -276,6 +293,7 @@ RANA re-ordered its flag letters in Aug 2025; our 2024 MoU crop was stale until 
 
 ```
 make check         # Caddy configs validate + every internal link/asset resolves
+make ci            # what GitHub Actions runs: validate + SEO/sitemap/robots + links (minus gitignored audio) + syntax
 make dev           # serve www/ locally with the real origin Caddyfile (:8086)
 make edge-deploy   # push www/ + config → recreate container → ship route → smoke test (staging)
 make edge-verify   # smoke test only (EDGE_URL=… to point elsewhere)
