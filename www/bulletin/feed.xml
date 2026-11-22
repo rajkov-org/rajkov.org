@@ -15,6 +15,26 @@
   <itunes:category text="News"/>
   <itunes:owner><itunes:name>Rajasthani Kutumb of Victoria Inc.</itunes:name><itunes:email>secretary@rajkov.org</itunes:email></itunes:owner>
   <item>
+    <title>Weekly Rajasthan Bulletin — 22 November 2026 (Rajasthani)</title>
+    <link>https://rajkov.org/bulletin/2026-11-22</link>
+    <guid isPermaLink="false">rajkov-bulletin-2026-11-22-raj</guid>
+    <pubDate>Sun, 22 Nov 2026 17:00:00 +1100</pubDate>
+    <description>खम्मा घणी सा, राम राम सा। RAJKOV रो साप्ताहिक राजस्थान बुलेटिन, बाईस नवंबर दो हजार छब्बीस। पुष्कर मेळो जोरां माथै है सा। विदेसी सैलाणी राजस्थान री संस्कृति मांय रमग्या। शैम्पेन रंग रो घोड़ो तीस करोड़ रो बतायो जावै, मेळै रो हीरो बण्यो है। जयपुर मांय राजस्थान रै लोक वाद्यां री नूंवी गैलरी खुली है। आपांरी लोक धुनां रो खजानो अब एक ठिकाणै देखण नै मिलसी। जयपुर एयरपोर्ट रै नूंवै टर्मिनल री नींव धरीजी है।…</description>
+    <enclosure url="https://rajkov.org/bulletin/audio/2026-11-22-raj.mp3" length="1389211" type="audio/mpeg"/>
+    <itunes:duration>174</itunes:duration>
+  </item>
+  <item>
+    <title>Weekly Rajasthan Bulletin — 22 November 2026 (English)</title>
+    <link>https://rajkov.org/bulletin/2026-11-22</link>
+    <guid isPermaLink="false">rajkov-bulletin-2026-11-22-en</guid>
+    <pubDate>Sun, 22 Nov 2026 17:00:00 +1100</pubDate>
+    <description>Khamma Ghani. Ram Ram sa. This is the Weekly Rajasthan Bulletin from RAJKOV, for the week of Sunday the twenty-second of November, twenty twenty-six.
+
+Pushkar is still the star! Foreign visitors are embracing Rajasthan&#x27;s culture at the fair, and a champagne-coloured horse, reportedly worth thirty crore rupees, stole the show. Tough competition for the camels! In Jaipur, a new gallery of Rajasthan&#x27;…</description>
+    <enclosure url="https://rajkov.org/bulletin/audio/2026-11-22-en.mp3" length="1367509" type="audio/mpeg"/>
+    <itunes:duration>171</itunes:duration>
+  </item>
+  <item>
     <title>Weekly Rajasthan Bulletin — 15 November 2026 (Rajasthani)</title>
     <link>https://rajkov.org/bulletin/2026-11-15</link>
     <guid isPermaLink="false">rajkov-bulletin-2026-11-15-raj</guid>
@@ -103,28 +123,6 @@ Now, the news. NBCC has won the projec…</description>
 Next Saturday the thirty-first, RAJKOV takes the stage at the Victorian Festival of Diwali at Federation Square, presented by Celebrate India — free, from eleven-thirty in the morning to ten at night. We present a traditional Rajasthani couple dance and a safa turban-t…</description>
     <enclosure url="https://rajkov.org/bulletin/audio/2026-10-25-en.mp3" length="1277459" type="audio/mpeg"/>
     <itunes:duration>160</itunes:duration>
-  </item>
-  <item>
-    <title>Weekly Rajasthan Bulletin — 18 October 2026 (Rajasthani)</title>
-    <link>https://rajkov.org/bulletin/2026-10-18</link>
-    <guid isPermaLink="false">rajkov-bulletin-2026-10-18-raj</guid>
-    <pubDate>Sun, 18 Oct 2026 17:00:00 +1100</pubDate>
-    <description>खम्मा घणी सा, राम राम सा। आप सगळां नै RAJKOV रो राजस्थान बुलेटिन सुणावां, अठारह अक्टूबर रो।
-
-सगळां सूं पैलां आपरै कुटुंब री मनुहार। RAJKOV रो दीपावली समारोह आवतै शनिवार, चौबीस अक्टूबर नै, दोपहर साढ़े तीन सूं सांझ छः बजे तांई, वेरिबी रै वाइंडमवेल कम्युनिटी सेंटर, पचपन कूकाबुरा एवेन्यू में है। टाबरां री दुकानां, टाबरां रा कार्यक्रम, खेल-कूद अर परिवारां रो मेळ-मिलाप होसी। सदस्यां नै ईमेल में गूगल फॉर…</description>
-    <enclosure url="https://rajkov.org/bulletin/audio/2026-10-18-raj.mp3" length="1794137" type="audio/mpeg"/>
-    <itunes:duration>224</itunes:duration>
-  </item>
-  <item>
-    <title>Weekly Rajasthan Bulletin — 18 October 2026 (English)</title>
-    <link>https://rajkov.org/bulletin/2026-10-18</link>
-    <guid isPermaLink="false">rajkov-bulletin-2026-10-18-en</guid>
-    <pubDate>Sun, 18 Oct 2026 17:00:00 +1100</pubDate>
-    <description>Khamma Ghani! Ram Ram sa! This is the Weekly Rajasthan Bulletin from RAJKOV, for Sunday the eighteenth of October, twenty twenty-six.
-
-First, a warm manuhaar from your own Kutumb. The RAJKOV Diwali Celebration is next Saturday, the twenty-fourth of October, from three thirty to six pm, at Wyndhamvale Community Centre, fifty-five Kookaburra Avenue, Werribee. There will be kids&#x27; entrepreneur stalls,…</description>
-    <enclosure url="https://rajkov.org/bulletin/audio/2026-10-18-en.mp3" length="1922003" type="audio/mpeg"/>
-    <itunes:duration>240</itunes:duration>
   </item>
 </channel>
 </rss>
