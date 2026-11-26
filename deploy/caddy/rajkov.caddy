@@ -13,13 +13,8 @@
 # production host only. Do not "fix" this at the origin.
 http://rajkov.org {
 	reverse_proxy {
-		dynamic a {
-			name rajkov
-			port 80
-			refresh 2s
-			resolvers 127.0.0.11
-			versions ipv4
-		}
+		# static upstream: active health checks are skipped for `dynamic a` (Caddy 2.11)
+		to rajkov:80
 		header_down -X-Robots-Tag
 		health_uri /healthz
 		health_port 80
@@ -37,13 +32,8 @@ http://www.rajkov.org {
 # STAGING MIRROR — keeps the origin's X-Robots-Tag, so it is never indexed.
 http://rajkov.suryasoni.info {
 	reverse_proxy {
-		dynamic a {
-			name rajkov
-			port 80
-			refresh 2s
-			resolvers 127.0.0.11
-			versions ipv4
-		}
+		# static upstream: active health checks are skipped for `dynamic a` (Caddy 2.11)
+		to rajkov:80
 		health_uri /healthz
 		health_port 80
 		health_interval 5s

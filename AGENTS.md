@@ -212,6 +212,8 @@ RANA re-ordered its flag letters in Aug 2025; our 2024 MoU crop was stale until 
 
 ## Lessons learned (keep this list current)
 
+- **2026-11-26 — edge route: static upstream, so the health check actually runs.** Caddy 2.11 does not run active health checks against `dynamic a` upstreams (reproduced on 2.11.9: a 503 `/api/health` still got traffic; a static `to` answers 503). The fragment now uses `to <alias>:<port>`; Caddy re-resolves the alias on each new connection, so container recreates are fine. Don't go back to `dynamic a` unless you run several replicas, and then accept passive-only checks (edge-onboard skill 22d84dc). Live `/api/health` was 200 before the switch. Done by the hub at the owner's request.
+
 - **2026-11-16 — the bulletin generator now has its own private repo.** `bulletin/` stays gitignored here (this repo is public), but it is now a nested git repo with a private GitHub remote (the owner's `rajkov-bulletin`). Before this it was in no backup: the nightly code backup skips ignored files. Commit generator changes inside `bulletin/` and push them there. `run.sh` runs its git commands from the repo root, so the nested repo doesn't affect the weekly run. Restore: clone it into `bulletin/` and recreate `.venv-edge`.
 - **2026-11-16 — GitHub Actions CI added (`.github/workflows/ci.yml` → `make ci`).** Runs on
   push to main, PRs and manual dispatch, `ubuntu-latest`, no secrets, `contents: read`. Checks:
